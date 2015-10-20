@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html ng-app = 'wdywdApp'>
+	<head>
+		<meta charset="utf-8">
+		<title>WDYWD</title>
+		<link rel="stylesheet" type="text/css" href="css/normalize.css">
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<link href='https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:200,300' rel='stylesheet' type='text/css'>
+	</head>
+	
+	<body>
+
+		<section id = 'body-content'>
+			<div ng-view>
+			</div>
+		</section>
+		
+		
+		<script type="text/javascript" src="lib/jquery.min.js"></script>
+		<!--Load Angular-->
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-route.js"></script>	
+		<script type="text/javascript" src="src/app.js"></script>
+		
+		<!--Load Angular Controllers-->
+		<script type="text/javascript" src="controllers/homeController.js"></script>
+		<script type="text/javascript" src="controllers/loginController.js"></script>
+		<script type="text/javascript" src="controllers/suggestionController.js"></script>
+		
+		<!--Load Angular Directives-->
+		<script type="text/javascript" src="directives/navBar.js"></script>
+		<!--Load Angular Factories-->
+		<script type="text/javascript" src="factories/manipulateSuggestionFactory.js"></script>
+		
+		
+		<script type='text/javascript' id="__bs_script__">//<![CDATA[
+    document.write("<script async src='http://HOST:3000/browser-sync/browser-sync-client.2.9.11.js'><\/script>".replace("HOST", location.hostname));
+//]]></script>
+	</body>
+</html>

@@ -1,7 +1,17 @@
 var wdywd = angular.module('wdywdApp')
-	.directive('navBar', function(){
+	.directive('navBar', function($location){
 		return{
 			restrict: 'E', 
-			templateUrl: 'partials/navbar.html'
+			templateUrl: 'partials/navbar.html', 
+			link: function (scope, element, attrs, location) {
+				scope.username = localStorage['username'] === undefined ? 'Guest' : localStorage['username'];
+				scope.loggedIn = localStorage['username'] === undefined ? false : true;
+				
+				scope.logout =  function(){
+					localStorage.clear();
+					$location.path('/login');
+					
+				}
+        	}
 		}
 	});

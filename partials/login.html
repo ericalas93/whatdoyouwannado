@@ -1,2 +1,29 @@
 <nav-bar></nav-bar>
+	
+
 {{message}}
+<br />
+<h1>Signup</h1>
+<form name = "signUpForm">
+	<label>UserName:</label>
+	<input type="text" ng-model="newUserForm.username" /><br />
+	
+	<label>Email</label>
+	<input type="text" ng-model ="newUserForm.email" /><br />
+	
+	<label>Password:</label>
+	<input type="password" ng-model ="newUserForm.password" /><br />
+
+	<button ng-click="signUpUser()">Sign Up!</button>
+</form>
+
+<h1>Login</h1>
+<form name= "loginForm">
+	<label>UserName:</label>
+	<input type="text" ng-model = "loginInfo.username" /><br />
+	
+	<label>Password</label>
+	<input type="password" ng-model = "loginInfo.password" /><br />
+	
+	<button ng-click = "loginUser()">Login!</button>
+</form>

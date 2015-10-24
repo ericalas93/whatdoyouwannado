@@ -1,37 +1,44 @@
 <!DOCTYPE html>
-<html ng-app = 'wdywdApp'>
+<html ng-app = 'wdywdApp' ng-cloak>
 	<head>
 		<meta charset="utf-8">
 		<title>WDYWD</title>
 		<link rel="stylesheet" type="text/css" href="css/normalize.css">
 		<link rel="stylesheet" type="text/css" href="css/style.css">
 		<link href='https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:200,300' rel='stylesheet' type='text/css'>
+				<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+
 	</head>
 	
 	<body>
 
 		<section id = 'body-content'>
-			<div ng-view>
+			<div ng-view id = "test">
 			</div>
 		</section>
 		
 		
 		<script type="text/javascript" src="lib/jquery.min.js"></script>
 		<!--Load Angular-->
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-route.js"></script>
 		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-messages.js"></script>	
+		<script type="text/javascript" src="https://cdn.rawgit.com/auth0/angular-jwt/master/dist/angular-jwt.js"></script>
 		<script type="text/javascript" src="src/app.js"></script>
 		
 		<!--Load Angular Controllers-->
 		<script type="text/javascript" src="controllers/homeController.js"></script>
 		<script type="text/javascript" src="controllers/loginController.js"></script>
 		<script type="text/javascript" src="controllers/suggestionController.js"></script>
+		<script type="text/javascript" src="controllers/newSuggestionController.js"></script>
+		<script type="text/javascript" src="controllers/userController.js"></script>
 		
 		<!--Load Angular Directives-->
 		<script type="text/javascript" src="directives/navBar.js"></script>
 		<!--Load Angular Factories-->
 		<script type="text/javascript" src="factories/manipulateSuggestionFactory.js"></script>
+		<script type="text/javascript" src="factories/userFactory.js"></script>
+<!-- 		<script type="text/javascript" src="factories/httpInteceptor.js"></script> -->
+		
 		
 		
 		<script type='text/javascript' id="__bs_script__">//<![CDATA[

@@ -15,6 +15,12 @@ $explanation-black: rgb(20, 20, 20);
     -webkit-transform: rotate($degree); /* Safari */
     transform: rotate($degree);
 }
+
+
+[ng\:cloak], [ng-cloak], .ng-cloak {
+  display: none !important;
+}
+
 /**********************************
 	
 			Nav Bar

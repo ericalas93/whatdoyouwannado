@@ -42,7 +42,7 @@
 		$prod_name = $data->name; 
 		$prod_price = $data->price;
 		 
-		print_r($data);
+		echo json_encode($data);
 		
 	}
 	

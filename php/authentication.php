@@ -22,6 +22,9 @@
 		
 		$sql = "INSERT INTO members (member_id, member_name, member_email, member_password) VALUES (null, '$username', '$email', '$password')";
 		
+		//create a new table for this user and copy and paste the default suggestions
+		create_new_member_table($username);
+		
 		if (mysqli_query($conn, $sql)) {
 		   // echo $username;
 		   echo create_jwt($username);
@@ -98,17 +101,35 @@
 		$tokenFromRequest 		= $data->token;
 		
 		//we got nothing? lets immeditely say no thanks
-		if($tokeFromRequest === null)
+		if($tokenFromRequest === null)
 			echo http_response_code(401);
+		
 		else{
 			$username = jwt_decode_for_username($tokenFromRequest);
 			$newToken = create_jwt($username);
 			
 			
 			
-			if($tokenFromRequest == $newToken)
+			if($tokenFromRequest === $newToken)
 				echo 'correct';
 			else
 				echo http_response_code(401);
 		}
+	}
+	
+	function create_new_member_table($username){
+		global $conn;
+		$sql = "CREATE TABLE $username (
+		suggestion_id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
+		suggestion_title VARCHAR(100) NOT NULL,
+		suggestion_category VARCHAR(50) NOT NULL,
+		suggestion_price VARCHAR(5) NOT NULL
+		)";
+		
+		if (mysqli_query($conn, $sql)) {
+		   //made table a-okay
+		   //lets populate it with default values;
+		   $sql_copy = "INSERT INTO $username SELECT * FROM default_suggestion";
+		   mysqli_query($conn, $sql_copy);
+		} 				
 	}

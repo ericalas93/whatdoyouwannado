@@ -28,7 +28,7 @@ $explanation-black: rgb(20, 20, 20);
 **********************************/
 
 
-@media only screen and (max-width: 520px) {
+@media screen and (max-width: 520px) {
 
 	.nav-bar-wrapper
 	{
@@ -81,21 +81,22 @@ $explanation-black: rgb(20, 20, 20);
 			
 **********************************/
 
-.explanation-text
-{
-	font-family: 'Yanone Kaffeesatz', sans-serif;
-	font-weight: 300;
-	font-size: 1.1em;
-	width: 80%;
-	margin-left: 10%;
-	text-align: center;
-	.italic
-	{
-		font-style: italic;
-	}
-}
+
 
 @media only screen and (max-width: 520px) {
+	.explanation-text
+	{
+		font-family: 'Yanone Kaffeesatz', sans-serif;
+		font-weight: 300;
+		font-size: 1.1em;
+		width: 80%;
+		margin-left: 10%;
+		text-align: center;
+		.italic
+		{
+			font-style: italic;
+		}
+	}
 	
 	#explanation
 	{
@@ -141,6 +142,17 @@ $explanation-black: rgb(20, 20, 20);
 **********************************/
 
 .error-form
+{
+	color: red;
+}
+
+/**********************************
+	
+			Login Page
+			
+**********************************/
+
+.login-error-message
 {
 	color: red;
 }

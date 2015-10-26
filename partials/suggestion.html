@@ -1,4 +1,23 @@
 <nav-bar></nav-bar>
 {{message}}
 
-<button ng-click = "getSuggestion()">Get some ideas!</button>
+<p>
+	Get one of many different suggestions from the default list, however, if there are other ideas you'd like to add to the list, sign up or login to create your own list of activities!
+</p>
+
+<button ng-click = "getSuggestion()" ng-disabled = "limitButtonDisable">Get some ideas!</button>
+
+
+<div ng-if="listOfSuggestions.length > 0">
+	<ul ng-repeat= "item in listOfSuggestions">
+		<li>
+			<div>
+				Try: {{item.suggestion_name}} <br />
+				Category: {{item.suggestion_category}}<br />
+				Price: {{item.suggestion_price}}
+			</div>
+		</li>
+	</ul>
+</div>
+
+{{limitMessage}}

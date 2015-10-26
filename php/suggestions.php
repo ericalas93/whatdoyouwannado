@@ -12,9 +12,11 @@
 	//get_suggestion();
 
 	function get_suggestion(){
+		$table_name = $_GET['tableName'];
+		
 		global $conn;
 	
-		$sql = "SELECT * FROM default_suggestion";
+		$sql = "SELECT * FROM $table_name";
 		$result = mysqli_query($conn, $sql);
 		
 		

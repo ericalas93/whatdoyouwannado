@@ -48,7 +48,7 @@ class JWT {
                 $this->alg = 'ECDSA';
                 break;
             */
-            default: exit("RSA and ECDSA not implemented yet!");
+           // default: exit("RSA and ECDSA not implemented yet!");
         }
         switch ($algorithm[2]) {
             case a:

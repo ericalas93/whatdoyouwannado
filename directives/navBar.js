@@ -8,6 +8,7 @@ var wdywd = angular.module('wdywdApp')
 				scope.loggedIn = localStorage['username'] === undefined ? false : true;
 				
 				scope.logout =  function(){
+					//clean the local storage
 					localStorage.clear();
 					$location.path('/login');
 					

@@ -1,5 +1,5 @@
 var wdywdApp = angular.module('wdywdApp', ['ngRoute', 'ngMessages', 'angular-jwt'])
-	.config(function($routeProvider, $locationProvider, $httpProvider, HttpErrorInterceptorModule){
+	.config(function($routeProvider, $locationProvider, $httpProvider){
 		$routeProvider
 			.when('/', {
 				templateUrl: 'partials/home.html', 
@@ -28,27 +28,20 @@ var wdywdApp = angular.module('wdywdApp', ['ngRoute', 'ngMessages', 'angular-jwt
 			});
 			
 			
-			$httpProvider.interceptors.push("HttpErrorInterceptorModule");
-	}).factory("HttpErrorInterceptorModule", ["$q", "$rootScope", "$location",
-	    function($q, $rootScope, $location) {
-		    return{
-			        var success = function(response) {
-			            // pass through
-			            return response;
-			        },
-			            error = function(response) {
-			                if(response.status === 401) {
-			                    console.log('hey it worked');
-			                }
-			
-			                return $q.reject(response);
-			            };
-			
-			        return function(httpPromise) {
-			            return httpPromise.then(success, error);
-			        };
-			}
-		}
-	]);
-	
+			$httpProvider.interceptors.push(function ($rootScope, $q, $location) {
+		        return {
+		            'response': function (response) {
+		                return response;
+		            },
+		            'responseError': function (rejection) {
+		                if(rejection.status === 401){
+			                console.log('caight the 401')
+			                $rootScope.$broadcast('401error');
+							$location.path('/login');
+		                }
+		                return $q.reject(rejection);
+		            }
+		        };
+		    });
+	});
 	

@@ -6,7 +6,7 @@
 <h1>Signup</h1>
 <form name = "signUpForm">
 	<label>UserName:</label>
-	<input type="text" ng-model="newUserForm.username" /><br />
+	<input type="text" ng-model="newUserForm.username"/><br />
 	
 	<label>Email</label>
 	<input type="text" ng-model ="newUserForm.email" /><br />
@@ -20,10 +20,14 @@
 <h1>Login</h1>
 <form name= "loginForm">
 	<label>UserName:</label>
-	<input type="text" ng-model = "loginInfo.username" /><br />
+	<input type="text" ng-model = "loginInfo.username" ng-value = "loggingInUsername"/><br />
 	
 	<label>Password</label>
 	<input type="password" ng-model = "loginInfo.password" /><br />
 	
 	<button ng-click = "loginUser()">Login!</button>
 </form>
+
+<div class = "login-error-message" ng-if="loginControllerError" sty>
+	Incorrect Credentials. Please try again
+</div>

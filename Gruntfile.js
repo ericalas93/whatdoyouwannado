@@ -18,6 +18,7 @@ module.exports = function(grunt) {
                 },
                 options: {
                     watchTask: true,
+                    files: ['css/style.css'],
                     proxy: "localhost:80",
                     notify: false
                 }

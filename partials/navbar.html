@@ -2,9 +2,13 @@
 	<h1>What Do You Wanna Do?</h1>
 	<header>
 		<ul>
-			<li>Hello, {{username}}</li>
+			<li ng-if = "!loggedIn">Hello, {{username}}</li>
 			<li ng-if = "!loggedIn"><a href="/login">Login</a></li>
-			<li><a  href = "#" ng-click ="logout()">Log out</a></li>
+			
+			<li ng-if = "loggedIn">Hello, <a href = "/dashboard" >{{username}}</a></li>
+			<li ng-if = "loggedIn"><a  href = "#" ng-click ="logout()">Log out</a></li>
+			
+			
 			<li><a href="/">Home</a></li>
 		</ul>
 	</header>

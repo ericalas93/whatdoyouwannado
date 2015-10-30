@@ -8,6 +8,7 @@
 		case 'create_user': post_new_user(); break;
 		case 'login_user': login_user(); break;
 		case 'check_log': userLoggedIn(); break;
+		case 'test': test(); break;
 	}
 	
 	
@@ -96,9 +97,12 @@
 	}
 	
 	
-	function userLoggedIn(){
-		$data 					= json_decode(file_get_contents('php://input'));
-		$tokenFromRequest 		= $data->token;
+	function userLoggedIn($tokenFromRequest = null){
+		//if we are calling userLoggedIn() from suggestions.php then it wont be null and no need to check from the POST data, as there is none
+		if($tokenFromRequest === null){
+			$data 					= json_decode(file_get_contents('php://input'));
+			$tokenFromRequest 		= $data->token;
+		}
 		
 		//we got nothing? lets immeditely say no thanks
 		if($tokenFromRequest === null)
@@ -110,10 +114,14 @@
 			
 			
 			
-			if($tokenFromRequest === $newToken)
-				echo 'correct';
-			else
+			if($tokenFromRequest === $newToken){
+				echo true;
+			}
+				
+			else{
 				echo http_response_code(401);
+			}
+				
 		}
 	}
 	
@@ -132,4 +140,8 @@
 		   $sql_copy = "INSERT INTO $username SELECT * FROM default_suggestion";
 		   mysqli_query($conn, $sql_copy);
 		} 				
+	}
+	
+	function test(){
+		echo 'test from php script';
 	}

@@ -1,5 +1,5 @@
 var wdywd = angular.module('wdywdApp')
-	.factory('UserAuthentication', function($http){
+	.factory('UserAuthentication', function($http, $q){
 		return{
 			postNewUser: function(newUser){
 				return $http.post('php/authentication.php?action=create_user', newUser);

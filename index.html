@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html ng-app = 'wdywdApp' ng-cloak>
 	<head>
+		<base href="/" />
 		<meta charset="utf-8">
 		<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
 		<title>WDYWD</title>
@@ -32,9 +33,11 @@
 		<script type="text/javascript" src="controllers/suggestionController.js"></script>
 		<script type="text/javascript" src="controllers/newSuggestionController.js"></script>
 		<script type="text/javascript" src="controllers/userController.js"></script>
+		<script type="text/javascript" src="controllers/editSuggestionController.js"></script>
 		
 		<!--Load Angular Directives-->
 		<script type="text/javascript" src="directives/navBar.js"></script>
+		<script type="text/javascript" src="directives/confirmDelete.js"></script>
 		<!--Load Angular Factories-->
 		<script type="text/javascript" src="factories/manipulateSuggestionFactory.js"></script>
 		<script type="text/javascript" src="factories/userFactory.js"></script>

@@ -19,7 +19,33 @@ var wdywdApp = angular.module('wdywdApp', ['ngRoute', 'ngMessages', 'angular-jwt
 			})
 			.when('/dashboard', {
 				templateUrl: 'partials/user.html', 
-				controller: 'userController'
+				controller: 'userController', 
+				resolve: {
+						confirmLoggedIn: function($q, UserAuthentication) {
+							var defer = $q.defer(), tokenRequest = {token: localStorage['jwt']};
+							UserAuthentication.userLoggedIn(tokenRequest).success(function(data){ defer.resolve(); });
+							return defer.promise;
+						}, 
+							
+						getCustomSuggestions: function($q, ManipulateSuggestion) {
+							var defer = $q.defer(), username = {tableName: localStorage['username']};
+							ManipulateSuggestion.getSuggestion(username).then(function(data){ defer.resolve(data) });
+							return defer.promise;
+						}
+				}
+			})
+			.when('/modify/:id', {
+				templateUrl: 'partials/editsuggestions.html', 
+				controller: 'editSuggestionController', 
+				resolve: {
+						getCustomSuggestion: function($q, ManipulateSuggestion, $route){
+							var defer = $q.defer(), suggestionInfo = localStorage['username'] !== undefined ? {tableName: localStorage['username']} : {tableName: 'default_suggestion'};
+							suggestionInfo.id = $route.current.params.id;
+							ManipulateSuggestion.getSuggestion(suggestionInfo).then(function(data){ defer.resolve(data) });
+							return defer.promise;
+
+						}
+				}
 			});
 			
 			$locationProvider.html5Mode({
@@ -35,7 +61,6 @@ var wdywdApp = angular.module('wdywdApp', ['ngRoute', 'ngMessages', 'angular-jwt
 		            },
 		            'responseError': function (rejection) {
 		                if(rejection.status === 401){
-			                console.log('caight the 401')
 			                $rootScope.$broadcast('401error');
 							$location.path('/login');
 		                }
@@ -43,5 +68,6 @@ var wdywdApp = angular.module('wdywdApp', ['ngRoute', 'ngMessages', 'angular-jwt
 		            }
 		        };
 		    });
+		    
 	});
 	

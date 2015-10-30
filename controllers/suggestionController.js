@@ -20,7 +20,7 @@ var wdywd = angular.module('wdywdApp')
 				$scope.token = {token: localStorage['jwt']};
 				
 				UserAuthentication.userLoggedIn($scope.token).success(function(data){
-					if(data == 'correct')
+					if(data === '1')
 						$scope.usernameTableName = $scope.localStorageUsername;				
 					else
 						$scope.usernameTableName = 'default_suggestion'
@@ -52,9 +52,7 @@ var wdywd = angular.module('wdywdApp')
 		$scope.getSuggestion = function(){
 			
 			$scope.tableName = {tableName: $scope.usernameTableName}
-			console.log( $scope.tableName) 
 			ManipulateSuggestion.getSuggestion($scope.tableName).then(function(result){
-				console.log(result)
 				//lets get how many suggestions there are
 				var numberOfSuggestions = result.length;
 				//lets store the results, dont forget to clear the list once we add a new element.

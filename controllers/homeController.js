@@ -6,8 +6,4 @@ var wdywd = angular.module('wdywdApp')
 		$scope.routeSuggestion = function(){
 			$location.path('/suggestion');		
 		};
-		
-		$scope.newSuggestion = function(){
-			$location.path('/newsuggestion');	
-		};
 	});

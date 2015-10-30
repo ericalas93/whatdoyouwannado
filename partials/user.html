@@ -4,4 +4,20 @@
 	<br />
 <br />
 
+Your current suggestions:
+<div>
+	<ul ng-repeat ="suggestions in userSuggestions">
+		<li>{{suggestions.suggestion_name}}</li>
+		<li>{{suggestions.suggestion_price}}</li>
+		<li>{{suggestions.suggestion_category}}</li>
+		<li><a href = "/modify/{{suggestions.id}}">Edit</a></li>
+		<li><button confirmed-delete="confirmDelete( suggestions.id, suggestions.suggestion_name)" ng-confirm-delete='Are you sure you want to delete "{{suggestions.suggestion_name}}"'>Delete</button></li>
+	</ul>
+</div>
+<br />
+
+
+Have a custom idea? <br />
+<button ng-click="newSuggestion()">Create New Suggestion</button>
+
 </div>

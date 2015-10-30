@@ -1,8 +1,29 @@
 var wdywd = angular.module('wdywdApp')
-	.controller('newSuggestionController', ['$scope', 'ManipulateSuggestion', function($scope, ManipulateSuggestion){
+	.controller('newSuggestionController', ['$rootScope', '$scope', 'ManipulateSuggestion' , 'UserAuthentication', 'jwtHelper', function($rootScope, $scope, ManipulateSuggestion, UserAuthentication, jwtHelper){
 		$scope.newIdea = {};
 		$scope.isItSubmitted = false;
 		$scope.message = "New Suggestion here";
+		
+		$scope.init = function(){
+			//lets get the token from the local storage... if there is one
+			$scope.token = localStorage['jwt'];
+			
+			//here we create a post object that will be recieved in the API
+			$scope.tokenRequest = {token: $scope.token};
+			
+			UserAuthentication.userLoggedIn($scope.tokenRequest).success(function(data){
+				$scope.tokenDecoded = jwtHelper.decodeToken($scope.token);
+				$scope.username = $scope.tokenDecoded.username;
+
+			
+			}).error(function(error){
+				//I choose you, httpinterceptor
+				$rootScope.userLoggingIn = error;
+			});
+		};
+		
+		$scope.init();
+		
 		
 		$scope.data = {
 			availableOptions: [
@@ -18,8 +39,6 @@ var wdywd = angular.module('wdywdApp')
 		$scope.save = function(idea){
 			$scope.newIdea = angular.copy(idea);
 			$scope.newIdea.category = $scope.data.selectedOption.name;
-			console.log($scope.newIdea);
-			$scope.reset();
 			$scope.settingTouched(false);
 
 			$scope.postNewIdea();
@@ -32,8 +51,19 @@ var wdywd = angular.module('wdywdApp')
 		};
 		
 		$scope.postNewIdea = function(){
+			//send over token for auth and username to add to that users specific table!
+			$scope.newIdea.jwt = $scope.token;
+			$scope.newIdea.username = $scope.username;
+			
 			ManipulateSuggestion.postSuggestion($scope.newIdea).then(function(data){
-				console.log(data);
+				if(data.data === '1'){
+					$scope.isItSubmitted = true;
+					//we can clear the form data since the post was successful
+					$scope.reset();
+				}else{
+					$scope.unsuccessfulSubmit = true;
+				}
+				//alert the user it was posted with info of the post
 			});
 		};
 		

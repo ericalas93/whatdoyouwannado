@@ -13,10 +13,10 @@
 		</div>
 		
 		
-		
+					
 		Idea Category: <select name="idea-select" id = "idea-select" 
-								ng-options="idea.name for idea in data.availableOptions" 
-								ng-model = "data.selectedOption"></select><br />
+						ng-options="option.name for option in data.availableOptions track by option.name" 
+						ng-model = "data.selectedOption"></select><br />
 								
 								
 		<label>Idea Price: (Free, $, $$, $$$)</label>
@@ -30,9 +30,20 @@
 <!-- 		<input type="button" ng-click="save(idea)" value="save" /> -->
 	</form>
 	
-	<pre>
-		{{newIdea | json}}
-	</pre>
+	<div ng-if="isItSubmitted">
+		Your new suggestion has been posted!
+		<ul>
+			<li>Title: {{newIdea.name}}</li>
+			<li>Category: {{newIdea.category}}</li>
+			<li>Price: {{newIdea.price}}</li>
+		</ul>
+	</div>
+	
+	<div ng-if = "unsuccessfulSubmit">
+		We are sorry, there seems to have been an error! Please try again.
+	</div>
+	
+
 
 	
 </div>

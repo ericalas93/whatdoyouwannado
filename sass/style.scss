@@ -1,5 +1,15 @@
-$nav-bar-black: rgb(37, 37, 37);
-$explanation-black: rgb(20, 20, 20);
+/**********************************
+	
+			SASS Variables
+				and
+			   Mixins
+			
+**********************************/
+$nav-bar: 							rgb(32, 37, 64);
+$explanation-black: 				rgb(20, 20, 20);
+$default_background_colour: 		rgb(80,87,130);
+$defualt_font_color: 				rgb(235, 238, 246);
+$default_font_color_alternative:	rgb(225, 228, 236);
 
 
 @mixin opacity($opacity)
@@ -16,9 +26,70 @@ $explanation-black: rgb(20, 20, 20);
     transform: rotate($degree);
 }
 
+@mixin transition($args...) {
+  -webkit-transition: $args;
+  -moz-transition: $args;
+  -ms-transition: $args;
+  -o-transition: $args;
+  transition: $args;
+}
 
-[ng\:cloak], [ng-cloak], .ng-cloak {
+/**********************************
+	
+			General
+			
+**********************************/
+
+body
+{
+	background-color: $default_background_colour;
+	font-family: 'Roboto', sans-serif;
+}
+
+div.ng-scope
+{
+	top: 0;
+	position: absolute;
+	margin: 0;
+	padding: 0;
+}
+
+[ng\:cloak], [ng-cloak], .ng-cloak 
+{
   display: none !important;
+}
+
+
+
+.transparent-btn
+{
+	margin: 0 auto;
+	width: 100px;
+	height: 40px;
+	background-color: transparent;
+	color: #fff;
+	font-weight: 300;
+	border: solid 1px $default_font_color_alternative;
+	text-transform: uppercase;
+	border-radius: 2px;
+	@include transition(background-color .5s ease);
+	
+	//temp hack
+	margin-left: 23%;
+
+}
+
+.transparent-btn:hover, .transparent-btn:focus
+{
+	background-color: $default_font_color_alternative;
+	color: black;
+	
+	
+}
+.large-btn
+{
+	width: 200px;
+	height: 50px;
 }
 
 /**********************************
@@ -32,27 +103,24 @@ $explanation-black: rgb(20, 20, 20);
 
 	.nav-bar-wrapper
 	{
-		margin-top: -16px;
-		background-color: #fff;
+
+		background-color: transparent;
 // 		@include opacity(0.5);
-		h1
-		{
-			font-size: 2em;
-			text-align: center;
-			width: 80%;
-			margin-left: 10%;
-		}
+		
 		header
 		{
+			
+			top: 0;
 			ul
 			{
+				font-weight: 300;
 				list-style: none;
 				float: right;
 				height: 25px;
-				background-color: $nav-bar-black;
+				background-color: $nav-bar;
 				width: 100%;
-				padding: 20px 0 10px 0;
-				color: red;
+				padding: 15px 0 15px 0;
+				margin: 0;
 
 				li
 				{
@@ -62,7 +130,12 @@ $explanation-black: rgb(20, 20, 20);
 				}
 				li:first-child
 				{
-					margin-left: 20%;
+					margin-left: 10%;
+				}
+				li:nth-child(2), li:nth-child(3)
+				{
+					float: right;
+					margin-right: 20px;
 				}
 				
 				li a:link, li a:visited
@@ -77,17 +150,30 @@ $explanation-black: rgb(20, 20, 20);
 
 /**********************************
 	
-			Explanation Area
+			Home Page
 			
 **********************************/
 
+h1
+{
+	color: $defualt_font_color;
+	font-size: 2em;
+	text-align: center;
+	width: 80%;
+	margin-left: 10%;
+	font-weight: 100;
+	border: 1px solid $default_font_color_alternative;
+	text-transform: uppercase;
+	margin-top: 40%;
+	border-radius: 2px;
+
+}
 
 
 @media only screen and (max-width: 520px) {
 	.explanation-text
 	{
-		font-family: 'Yanone Kaffeesatz', sans-serif;
-		font-weight: 300;
+		font-weight: 100;
 		font-size: 1.1em;
 		width: 80%;
 		margin-left: 10%;
@@ -103,23 +189,12 @@ $explanation-black: rgb(20, 20, 20);
 		color: white;
 		width: 100%;
 		height: 300px;
-		background-color: $explanation-black;
-		margin-top: 90px;
+		margin-top: 25px;
 		position: relative;
 		z-index: -3;
 	}
+	
 
-	.corner-cutoff
-	{
-		position: relative;
-		margin-top: 35px;
-		margin-left: -10%;
-		width: 120%;
-		height: 120px; 
-		background-color: white;
-		@include skew(5deg);
-		z-index: -2;
-	}
 }
 /**********************************
 	
@@ -130,7 +205,7 @@ $explanation-black: rgb(20, 20, 20);
 #body-content
 {
 	position: relative;
-	z-index: 10;
+	
 // 	margin-top: 60px;
 }
 

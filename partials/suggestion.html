@@ -1,16 +1,16 @@
 <nav-bar></nav-bar>
-{{message}}
 
-<p>
+
+<p class = "suggestion-explanation">
 	Get one of many different suggestions from the default list, however, if there are other ideas you'd like to add to the list, sign up or login to create your own list of activities!
 </p>
 
-<button ng-click = "getSuggestion()" ng-disabled = "limitButtonDisable">Get some ideas!</button>
 
 
-<div ng-if="listOfSuggestions.length > 0">
-	<ul ng-repeat= "item in listOfSuggestions">
-		<li>
+<div class = "list-of-suggestions" ng-if="listOfSuggestions.length > 0">
+	<ul>
+		<li ng-repeat= "item in listOfSuggestions">
+			<i class="fa fa-lightbulb-o fa-2x"></i>
 			<div>
 				Try: {{item.suggestion_name}} <br />
 				Category: {{item.suggestion_category}}<br />
@@ -18,6 +18,10 @@
 			</div>
 		</li>
 	</ul>
+	
 </div>
+
+
+<button class = "transparent-btn large-btn" ng-click = "getSuggestion()" ng-disabled = "limitButtonDisable">Get some ideas!</button>
 
 {{limitMessage}}

@@ -53,6 +53,7 @@ var wdywd = angular.module('wdywdApp')
 			
 			$scope.tableName = {tableName: $scope.usernameTableName}
 			ManipulateSuggestion.getSuggestion($scope.tableName).then(function(result){
+				console.log(result)
 				//lets get how many suggestions there are
 				var numberOfSuggestions = result.length;
 				//lets store the results, dont forget to clear the list once we add a new element.
@@ -72,8 +73,8 @@ var wdywd = angular.module('wdywdApp')
 					alreadySuggested = $scope.containsId($scope.listOfSuggestions, $scope.resultSuggestions[randomSuggestionId]);	
 				}
 				
-				//yeah its under three, lets add it
-				if( $scope.listOfSuggestions.length < 3){
+				//yeah its under three, lets add it, remove true when we add a limit
+				if( $scope.listOfSuggestions.length < 3 || true){
 					$scope.listOfSuggestions.push($scope.resultSuggestions[randomSuggestionId])
 				}else{
 					//theres now more than 3

@@ -1,32 +1,35 @@
 <nav-bar></nav-bar>
+
+<h1 class = "login-signup-header signup">Login</h1>
+
+<form class = "user-login-form" name= "loginForm">
+
+	<i class="fa fa-user"></i><input type="text" ng-model = "loginInfo.username" ng-value = "loggingInUsername" placeholder="User Name"/><br />
 	
 
-{{message}}
-<br />
-<h1>Signup</h1>
-<form name = "signUpForm">
-	<label>UserName:</label>
-	<input type="text" ng-model="newUserForm.username"/><br />
+	<i class="fa fa-key"></i><input type="password" ng-model = "loginInfo.password" placeholder="Password"/><br />
 	
-	<label>Email</label>
-	<input type="text" ng-model ="newUserForm.email" /><br />
-	
-	<label>Password:</label>
-	<input type="password" ng-model ="newUserForm.password" /><br />
-
-	<button ng-click="signUpUser()">Sign Up!</button>
+	<button class="transparent-btn small-btn" ng-click = "loginUser()">Login!</button>
 </form>
 
-<h1>Login</h1>
-<form name= "loginForm">
-	<label>UserName:</label>
-	<input type="text" ng-model = "loginInfo.username" ng-value = "loggingInUsername"/><br />
+
+
+
+<h1 class = "login-signup-header login">Signup</h1>
+
+<form class = "user-login-form" name = "signUpForm">
+
+	<i class="fa fa-user"></i><input type="text" ng-model="newUserForm.username" placeholder="User Name"/><br />
 	
-	<label>Password</label>
-	<input type="password" ng-model = "loginInfo.password" /><br />
 	
-	<button ng-click = "loginUser()">Login!</button>
+	<i class="fa fa-envelope"></i><input type="text" ng-model ="newUserForm.email" placeholder="Email Address"/><br />
+	
+
+	<i class="fa fa-key"></i><input type="password" ng-model ="newUserForm.password" placeholder="Password"/><br />
+
+	<button class="transparent-btn small-btn" ng-click="signUpUser()">Sign Up!</button>
 </form>
+
 
 <div class = "login-error-message" ng-if="loginControllerError" sty>
 	Incorrect Credentials. Please try again

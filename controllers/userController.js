@@ -71,8 +71,7 @@ $scope.init = function(){
 							 };
 							 
 			ManipulateSuggestion.deleteSuggestion(suggestion).then(function(data){	
-				//use apply to "rerender" the ng-repeat
-				console.log(deleted)				
+				//use apply to "rerender" the ng-repeat				
 			});
 
 			

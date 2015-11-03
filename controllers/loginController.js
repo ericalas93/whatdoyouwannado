@@ -45,7 +45,7 @@ var wdywd = angular.module('wdywdApp')
 				localStorage.setItem("username", $scope.newUser.username); 
 				$location.path('/dashboard');
 			}).error(function(error){
-				console.error(error);
+				$location.path('/login');
 			})
 		};
 		
@@ -55,7 +55,7 @@ var wdywd = angular.module('wdywdApp')
 			
 			UserAuthentication.logInUser($scope.loggedInUser).success(function(data){
 				//did we get a good response?
-				if(data == 'no such user'){
+				if(data == 'no such user' || data == "fail"){
 					//let redirect just so we can get a login error and autofill the username field... ugly and hacky? yes. I'm sorry.
 					$location.path('/dashboard');
 				}
@@ -67,7 +67,7 @@ var wdywd = angular.module('wdywdApp')
 				}
 				
 			}).error(function(error){
-				console.error(error);
+				$location.path('/login');
 			});
 		};
 		

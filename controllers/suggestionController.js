@@ -53,7 +53,6 @@ var wdywd = angular.module('wdywdApp')
 			
 			$scope.tableName = {tableName: $scope.usernameTableName}
 			ManipulateSuggestion.getSuggestion($scope.tableName).then(function(result){
-				console.log(result)
 				//lets get how many suggestions there are
 				var numberOfSuggestions = result.length;
 				//lets store the results, dont forget to clear the list once we add a new element.

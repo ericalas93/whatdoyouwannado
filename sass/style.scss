@@ -57,9 +57,6 @@ body
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1a1e3a', endColorstr='#3d4062',GradientType=0 ); /* IE6-8 */
 
 
-
-
-
 }
 
 div.ng-scope
@@ -68,6 +65,7 @@ div.ng-scope
 	position: absolute;
 	margin: 0;
 	padding: 0;
+	width: 100%;
 }
 
 [ng\:cloak], [ng-cloak], .ng-cloak 
@@ -91,7 +89,7 @@ div.ng-scope
 	@include transition(background-color .5s ease);
 	
 	//temp hack
-	margin-left: 23%;
+	margin-left: 22%;
 
 }
 
@@ -104,8 +102,36 @@ div.ng-scope
 }
 .large-btn
 {
-	width: 200px;
+	width: 40%;
 	height: 50px;
+	margin-left: 30%;
+}
+
+.small-btn
+{
+	width: 100px;
+	height: 30px;
+}
+
+.long-btn
+{
+	width: 50%;
+	height: 30px;
+	margin-left: 25%;
+}
+
+.smaller-btn
+{
+	width: 70px;
+	height: 40px;
+	text-transform: none;
+	margin-left: -5px;
+}
+
+.small-isolate
+{
+	margin-top: 10px;
+	margin-bottom: 10px;
 }
 
 /**********************************
@@ -115,7 +141,7 @@ div.ng-scope
 **********************************/
 
 
-@media screen and (max-width: 520px) {
+
 
 	.nav-bar-wrapper
 	{
@@ -162,7 +188,7 @@ div.ng-scope
 			}
 		}
 	}
-}
+
 
 
 @media screen and (max-width: 320px) {
@@ -194,23 +220,23 @@ div.ng-scope
 			
 **********************************/
 
-h1
-{
-	color: $defualt_font_color;
-	font-size: 2em;
-	text-align: center;
-	width: 80%;
-	margin-left: 10%;
-	font-weight: 100;
-	border: 1px solid $default_font_color_alternative;
-	text-transform: uppercase;
-	margin-top: 40%;
-	border-radius: 2px;
+.title.ng-scope
+	{
+		color: $defualt_font_color;
+		font-size: 2em;
+		text-align: center;
+		width: 80%;
+		margin-left: 10%;
+		font-weight: 100;
+		border: 1px solid $default_font_color_alternative;
+		text-transform: uppercase;
+		margin-top: 40%;
+		border-radius: 2px;
+	
+	}
 
-}
 
 
-@media only screen and (max-width: 520px) {
 	.explanation-text
 	{
 		font-weight: 100;
@@ -232,6 +258,19 @@ h1
 		margin-top: 25px;
 		position: relative;
 		z-index: -3;
+	}
+	
+
+@media only screen and (orientation:landscape) 
+{
+	.title.ng-scope
+	{
+		margin-top: 12%;
+	}
+	
+	#explanation
+	{
+		margin-bottom: -125px;
 	}
 	
 
@@ -272,7 +311,7 @@ h1
 .list-of-suggestions.ng-scope
 {
 	top: 100%;
-	color: white;
+	color: #fff;
 
 
 
@@ -284,6 +323,8 @@ h1
 		li
 		{
 			font-weight: 200;
+			background-color: rgba(255,255,255,0.1);
+			margin-bottom: 5px;
 			i
 			{
 				position: relative;
@@ -293,13 +334,12 @@ h1
 			}
 			div
 			{
-				color: white;
 				display: inline-table;
 				width: 200px;
 				margin-bottom: 20px;
 				color: $defualt_font_color;
 				text-align: left;
-							
+				
 
 			}
 			
@@ -325,7 +365,164 @@ h1
 			
 **********************************/
 
+.login-signup-header
+{
+	
+	color: $defualt_font_color;
+	font-size: 2em;
+	text-align: center;
+	width: 80%;
+	margin-left: 10%;
+	font-weight: 100;
+	text-transform: uppercase;
+	margin-top: 40%;
+	border-radius: 2px;
+	
+}
+
+.signup
+{
+	margin-top: 100px;
+}
+
+
+.login
+{
+	margin-top: 100px;
+}
+
+.user-login-form
+{
+	width: 80%;	
+	margin-left: 10%;
+	
+	i
+	{
+		position: relative;
+		left: 10%;
+		width: 20px;
+	}
+	input
+	{
+		margin-left: 3%;
+		width: 70% ;
+		padding-left: 12%;
+		font-weight: 100;
+		color: $defualt_font_color;
+		background-color: transparent;
+		border: none;
+		border-bottom: 1px solid $default_font_color_alternative;
+		margin-bottom: 20px;
+		
+	}
+	input:focus
+	{
+		outline: none;
+	}
+	button
+	{
+		float: right;
+		margin-top: 10px;
+	}
+}
+
+
 .login-error-message
 {
 	color: red;
+}
+
+/**********************************
+	
+			Dashboard/User
+			Homepage
+			
+**********************************/
+
+.dashboard-welcome.ng-scope
+{
+	font-weight: 300;
+	color: $defualt_font_color;
+	margin-top: 60px;
+}
+
+.user-suggestions.ng-scope
+{
+	top: 100px;
+	color: $defualt_font_color;
+	font-weight: 300;
+	width: 100%;
+	
+
+
+	ul
+	{
+		list-style: none;
+		padding: 0;
+		li
+		{
+			font-weight: 200;
+			background-color: rgba(255,255,255,0.1);
+			margin-bottom: 5px;
+			display: -webkit-flex;
+			display: flex;
+			width: 100%;
+			justify-content: flex-end;
+			-webkit-justify-content:flex-end;
+
+			i
+			{
+				
+				position: relative;
+				padding: 30px 10px 0 10px;
+			}
+			
+			.left-side-options
+			{
+				padding-top: 20px;
+				margin-right: auto;
+				display: inline-table;
+				width: 200px;
+				margin-bottom: 20px;
+				color: $defualt_font_color;
+				text-align: left;
+					
+			}
+
+			.right-side-options
+			{
+				position: relative;
+				a, a:link, a:visited
+				{
+					margin-right: 10px;
+					margin-bottom: 15px;
+					color: $default_font_color_alternative;
+					text-decoration: none;
+				}
+			}
+			
+		}
+	}
+	
+		
+}
+
+
+@media only screen and (max-width: 320px)
+{
+	.user-suggestions.ng-scope
+	{
+		font-size: 14px;
+	}
+	
+	.smaller-btn
+	{
+		width: 60px;
+	}
+	
+	.right-side-options
+	{
+		width: 80px;
+	}
+	
 }

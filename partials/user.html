@@ -1,23 +1,32 @@
-<div ng-cloak>
-<nav-bar></nav-bar>
-	Welcome, {{username}}
-	<br />
-<br />
 
-Your current suggestions:
-<div>
-	<ul ng-repeat ="suggestions in userSuggestions">
-		<li>{{suggestions.suggestion_name}}</li>
-		<li>{{suggestions.suggestion_price}}</li>
-		<li>{{suggestions.suggestion_category}}</li>
-		<li><a href = "/modify/{{suggestions.id}}">Edit</a></li>
-		<li><button confirmed-delete="confirmDelete( suggestions.id, suggestions.suggestion_name)" ng-confirm-delete='Are you sure you want to delete "{{suggestions.suggestion_name}}"'>Delete</button></li>
+<nav-bar></nav-bar>
+	
+<div class = "dashboard-welcome">
+	Welcome back, {{username}}!
+</div>
+
+
+<div class = "user-suggestions">
+	Add a new activity to do, <br /> <button class = "transparent-btn long-btn small-isolate" ng-click="newSuggestion()">New Suggestion!</button><br />
+	or view your current suggestions:
+	<ul>
+		<li ng-repeat ="suggestions in userSuggestions">
+		
+				<i class="fa fa-lightbulb-o fa-2x"></i>
+				<div class = "left-side-options">
+					Try: {{suggestions.suggestion_name}}<br />
+					Category: {{suggestions.suggestion_category}}<br />
+					Price: {{suggestions.suggestion_price}}
+				</div>
+				<div class = "right-side-options">
+					<a href = "/modify/{{suggestions.id}}"><i class="fa fa-pencil-square-o"></i> Edit</a><br />
+					<button class = "transparent-btn smaller-btn" confirmed-delete="confirmDelete( suggestions.id, suggestions.suggestion_name)" ng-confirm-delete='Are you sure you want to delete "{{suggestions.suggestion_name}}"'>Delete</button><br/>
+				</div>
+			
+			
+		</li>
 	</ul>
 </div>
-<br />
 
 
-Have a custom idea? <br />
-<button ng-click="newSuggestion()">Create New Suggestion</button>
 
-</div>

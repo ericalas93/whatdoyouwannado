@@ -1,32 +1,39 @@
 <nav-bar></nav-bar>
 	
-	{{message}}
+
 	
-<div>
-	<form name="suggestionForm">
-		<label>Idea Name: </label>
-		<input type="text" name ="suggestionName" ng-model = "idea.name" ng-minlength = "4" ng-maxlength = "100" required /><br />
-		<div class = "error-form" ng-messages = "suggestionForm.suggestionName.$error" ng-if="suggestionForm.suggestionName.$touched">
-			<div ng-message="required">Name is Required</div>
-			<div ng-message="minlength">Name is too short. (Max 4 chars.)</div>
-			<div ng-message="maxlength">Name is too long. (Max 100 chars.)</div>
+<div class = "new-suggestion">
+	<p>
+		Perhaps none of the stock suggestions sound fun, why not add your own!
+	</p>
+	<form name="suggestionForm" class ="user-login-form new-suggestion-form">
+		<div class = "input-name">
+			<label>Idea Name: </label>
+			<input type="text" name ="suggestionName" ng-model = "idea.name" ng-minlength = "4" ng-maxlength = "100" required /><br />
+			<div class = "error-form" ng-messages = "suggestionForm.suggestionName.$error" ng-if="suggestionForm.suggestionName.$touched">
+				<div ng-message="required">Name is Required</div>
+				<div ng-message="minlength">Name is too short. (Max 4 chars.)</div>
+				<div ng-message="maxlength">Name is too long. (Max 100 chars.)</div>
+			</div>
 		</div>
 		
 		
-					
-		Idea Category: <select name="idea-select" id = "idea-select" 
+		<div class = "top-isolate">				
+		<label>Idea Category: </label><select name="idea-select" id = "idea-select" 
 						ng-options="option.name for option in data.availableOptions track by option.name" 
 						ng-model = "data.selectedOption"></select><br />
-								
-								
+		</div>						
+			
+		<div class = "top-isolate">							
 		<label>Idea Price: (Free, $, $$, $$$)</label>
 		<input type="text" name ="suggestionPrice" ng-model = "idea.price"  ng-pattern = "/(free|\${1,3})/i" required /><br />
 		<div class = "error-form" ng-messages="suggestionForm.suggestionPrice.$error" ng-if="suggestionForm.suggestionPrice.$touched">
 			<div ng-message="required">Price is required.</div>
 			<div ng-message="pattern">Price must be: "Free", "$", "$$", or "$$$"</div>
 		</div>
+		</div>
 		
-		<input type="button" ng-click="confirm(idea)" value="save" />
+		<button class = "transparent-btn large-btn" type="button" ng-click="confirm(idea)">Save</button>
 <!-- 		<input type="button" ng-click="save(idea)" value="save" /> -->
 	</form>
 	

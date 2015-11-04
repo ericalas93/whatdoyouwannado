@@ -88,6 +88,9 @@ div.ng-scope {
   margin-top: 10px;
   margin-bottom: 10px; }
 
+.top-isolate {
+  margin-top: 20px; }
+
 /**********************************
 	
 			Nav Bar
@@ -223,9 +226,6 @@ div.ng-scope {
 			New Suggestion
 			
 **********************************/
-.error-form {
-  color: red; }
-
 /**********************************
 	
 			Login Page
@@ -271,8 +271,29 @@ div.ng-scope {
     float: right;
     margin-top: 10px; }
 
-.login-error-message {
-  color: red; }
+.login-error-message.ng-scope {
+  position: relative;
+  font-weight: 300;
+  color: red;
+  width: 80%;
+  margin-left: 10%;
+  margin-top: -10px; }
+
+.login-field-error-message.ng-scope {
+  color: red;
+  height: 40px;
+  font-weight: 300;
+  position: relative;
+  width: 80%;
+  margin-left: 10%; }
+
+.signup-error.ng-scope {
+  color: red;
+  height: 30px;
+  font-weight: 300;
+  position: relative;
+  width: 80%;
+  margin-left: 10%; }
 
 /**********************************
 	
@@ -283,13 +304,21 @@ div.ng-scope {
 .dashboard-welcome.ng-scope {
   font-weight: 300;
   color: #ebeef6;
-  margin-top: 60px; }
+  margin-top: 60px;
+  width: 90%;
+  margin-left: 5%; }
 
 .user-suggestions.ng-scope {
   top: 100px;
   color: #ebeef6;
   font-weight: 300;
   width: 100%; }
+  .user-suggestions.ng-scope .dashboard-message {
+    width: 80%;
+    margin-left: 10%; }
+    .user-suggestions.ng-scope .dashboard-message button {
+      width: 60%;
+      margin-left: 20%; }
   .user-suggestions.ng-scope ul {
     list-style: none;
     padding: 0; }
@@ -330,5 +359,65 @@ div.ng-scope {
 
   .right-side-options {
     width: 80px; } }
+/**********************************
+	
+		Edit Suggestion
+			
+**********************************/
+.edit-suggestion-form.ng-scope {
+  width: 80%;
+  font-weight: 100;
+  margin-top: 100px;
+  margin-left: 15%; }
+  .edit-suggestion-form.ng-scope label {
+    color: #ebeef6; }
+  .edit-suggestion-form.ng-scope .input-name {
+    position: relative;
+    margin-top: 10%; }
+  .edit-suggestion-form.ng-scope .error-form.ng-scope {
+    position: relative;
+    color: red;
+    margin-top: -15px; }
+
+.edit-submitted.ng-scope {
+  margin-top: 100px;
+  color: #ebeef6;
+  font-weight: 100;
+  width: 80%;
+  margin-left: 10%; }
+  .edit-submitted.ng-scope ul {
+    list-style: none; }
+  .edit-submitted.ng-scope a, .edit-submitted.ng-scope a:link, .edit-submitted.ng-scope a:visited {
+    color: #e1e4ec; }
+
+@media only screen and (max-width: px) {
+  .edit-suggestion-form.ng-scope {
+    font-weight: 300; } }
+/**********************************
+	
+		New suggestion
+			
+**********************************/
+.new-suggestion.ng-scope {
+  margin-top: 100px;
+  color: #ebeef6; }
+  .new-suggestion.ng-scope p {
+    font-weight: 300;
+    line-height: 1.3em;
+    font-size: 16px;
+    width: 80%;
+    margin-left: 10%; }
+  .new-suggestion.ng-scope .new-suggestion-form {
+    width: 80%;
+    font-weight: 100;
+    margin-top: 100px;
+    margin-left: 15%; }
+    .new-suggestion.ng-scope .new-suggestion-form .input-name {
+      position: relative;
+      margin-top: 10%; }
+    .new-suggestion.ng-scope .new-suggestion-form .error-form.ng-scope {
+      position: relative;
+      color: red;
+      margin-top: -15px; }
 
 /*# sourceMappingURL=style.css.map */

@@ -7,8 +7,10 @@
 
 
 <div class = "user-suggestions">
-	Add a new activity to do, <br /> <button class = "transparent-btn long-btn small-isolate" ng-click="newSuggestion()">New Suggestion!</button><br />
-	or view your current suggestions:
+	<div class ="dashboard-message">
+		Add a new activity to do, <br /> <button class = "transparent-btn long-btn small-isolate" ng-click="newSuggestion()">New Suggestion!</button><br />
+		or view your current suggestions:
+	</div>
 	<ul>
 		<li ng-repeat ="suggestions in userSuggestions">
 		

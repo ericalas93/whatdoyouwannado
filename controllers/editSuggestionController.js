@@ -71,7 +71,6 @@ var wdywd = angular.module('wdywdApp')
  				$scope.save();
 			}
 			else{
-				console.log('hrere')
 				$scope.settingTouched(true);
 			}
 		};

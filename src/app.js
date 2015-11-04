@@ -57,6 +57,7 @@ var wdywdApp = angular.module('wdywdApp', ['ngRoute', 'ngMessages', 'angular-jwt
 			$httpProvider.interceptors.push(function ($rootScope, $q, $location) {
 		        return {
 		            'response': function (response) {
+			           
 		                return response;
 		            },
 		            'responseError': function (rejection) {

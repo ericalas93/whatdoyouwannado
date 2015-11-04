@@ -1,45 +1,48 @@
 <nav-bar></nav-bar>
-hello, {{showName}}
-<br />
 
 
 
-<form name="suggestionForm" ng-hide = "isItSubmitted">
-	<label>Idea Name: </label>
-	<input type="text" name ="suggestionName" ng-model = "idea.name" ng-minlength = "4" ng-maxlength = "100"  required /><br />
-	<div class = "error-form" ng-messages = "suggestionForm.suggestionName.$error" ng-if="suggestionForm.suggestionName.$touched  && !suggestionForm.suggestionName.$pristine ">
-		<div ng-message="required">Name is Required</div>
-		<div ng-message="minlength">Name is too short. (Max 4 chars.)</div>
-		<div ng-message="maxlength">Name is too long. (Max 100 chars.)</div>
+<form name="suggestionForm" ng-hide = "isItSubmitted" class  ="user-login-form edit-suggestion-form">
+	<div class = "input-name">
+		<label>Idea Name: </label>
+		<input type="text" name ="suggestionName" ng-model = "idea.name" ng-minlength = "4" ng-maxlength = "100"  required /><br />
+		<div class = "error-form" ng-messages = "suggestionForm.suggestionName.$error" ng-if="suggestionForm.suggestionName.$touched  && !suggestionForm.suggestionName.$pristine ">
+			<div ng-message="required">Name is Required</div>
+			<div ng-message="minlength">Name is too short. (Max 4 chars.)</div>
+			<div ng-message="maxlength">Name is too long. (Max 100 chars.)</div>
+		</div>
 	</div>
 	
-	
-				
-	Idea Category: <select name="idea-select" id = "idea-select" 
+	<div class = "top-isolate">	
+		<label>Idea Category:</label><br /> <select name="idea-select" id = "idea-select" 
 					ng-options="option.name for option in data.availableOptions track by option.name" 
 					ng-model = "data.selectedOption"></select><br />
 							
-							
-	<label>Idea Price: (Free, $, $$, $$$)</label>
-	<input type="text" name ="suggestionPrice" ng-model = "idea.price"  ng-pattern = "/(free|\${1,3})/i" required ng-value = "suggestion.suggestion_price"/><br />
-	<div class = "error-form" ng-messages="suggestionForm.suggestionPrice.$error" ng-if="suggestionForm.suggestionPrice.$touched && !suggestionForm.suggestionName.$pristine">
-		<div ng-message="required">Price is required.</div>
-		<div ng-message="pattern">Price must be: "Free", "$", "$$", or "$$$"</div>
 	</div>
 	
-	<input type="button" ng-click="confirm()" value="save" />
+	<div class = "top-isolate">					
+		<label class = "top-isolate">Idea Price: (Free, $, $$, $$$)</label>
+		<input type="text" name ="suggestionPrice" ng-model = "idea.price"  ng-pattern = "/(^free$|^\${1,3}$)/i" required ng-value = "suggestion.suggestion_price"/><br />
+		<div class = "error-form" ng-messages="suggestionForm.suggestionPrice.$error" ng-if="suggestionForm.suggestionPrice.$touched && !suggestionForm.suggestionPrice.$pristine">
+			<div ng-message="required">Price is required.</div>
+			<div ng-message="pattern">Price must be: "Free", "$", "$$", or "$$$"</div>
+		</div>
+	</div>
+	<br />
+	<button class = "transparent-btn large-btn" type="button" ng-click="confirm()">Update</button>
 </form>
 
-<div ng-if="isItSubmitted">
-		Your new suggestion has been posted! Please wait to be redirected back to your dashboard, or <a href = "/dashboard">click here.</a>
-		<ul>
-			<li>Title: {{idea.name}}</li>
-			<li>Category: {{idea.category}}</li>
-			<li>Price: {{idea.price}}</li>
-		</ul>
-	</div>
+<div ng-if="isItSubmitted" class = "edit-submitted">
+	Your new suggestion has been posted! Please wait to be redirected back to your dashboard, or <a href = "/dashboard">click here.</a>
+	<ul>
+		<li>Title: {{idea.name}}</li>
+		<li>Category: {{idea.category}}</li>
+		<li>Price: {{idea.price}}</li>
+	</ul>
+	
 	
 	<div ng-if = "unsuccessfulSubmit">
 		We are sorry, there seems to have been an error! Please try again.
 	</div>
+</div>
 	

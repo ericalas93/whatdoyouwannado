@@ -3,9 +3,13 @@ var wdywd = angular.module('wdywdApp')
 		
 		
 		$scope.init = function(){
+			$scope.loginInfo = {
+				username: $rootScope.loggingInUsername, 
+				password: undefined
+			};
 			//if this isnt the first time opening login page then check again
 			//these lines are to trigger when there was an invalid login and we must show the errors and related info to the user
-			$scope.loginControllerError = $rootScope.loginControllerError === undefined ? false : true;
+			$scope.loginControllerError = $rootScope.loginControllerError;
 			
 			//lets get the username from localstorage
 			$scope.localStorageUsername = localStorage['username'];
@@ -50,25 +54,39 @@ var wdywd = angular.module('wdywdApp')
 		};
 		
 		$scope.loginUser = function(){
-			$scope.loggedInUser = angular.copy($scope.loginInfo);
-			$rootScope.loggingInUsername = $scope.loggedInUser.username;
-			
-			UserAuthentication.logInUser($scope.loggedInUser).success(function(data){
-				//did we get a good response?
-				if(data == 'no such user' || data == "fail"){
-					//let redirect just so we can get a login error and autofill the username field... ugly and hacky? yes. I'm sorry.
-					$location.path('/dashboard');
-				}
-				else{		
-					//we got a good login and that means that we can go ahead and store all the info and keep it :) 		
-					localStorage.setItem("jwt", data);
-					localStorage.setItem("username", $scope.loggedInUser.username);
-					$location.path('/dashboard');
-				}
+			//they entered a username
+			if($scope.loginInfo.username !== undefined && $scope.loginInfo.password !== undefined){
+				$scope.loggedInUser = angular.copy($scope.loginInfo);
 				
-			}).error(function(error){
-				$location.path('/login');
-			});
+				//this allows the username to be saved after redirect; see line XX for local saving
+				$rootScope.loggingInUsername = $scope.loggedInUser.username;
+				
+				UserAuthentication.logInUser($scope.loggedInUser).success(function(data){
+					//did we get a good response?
+					if(data == 'no such user' || data == "fail"){
+						//let redirect just so we can get a login error and autofill the username field... ugly and hacky? yes. I'm sorry.
+						$location.path('/dashboard');
+// 						$scope.loginControllerError = true;
+					}
+					else{		
+						//we got a good login and that means that we can go ahead and store all the info and keep it :) 		
+						localStorage.setItem("jwt", data);
+						localStorage.setItem("username", $scope.loggedInUser.username);
+						$location.path('/dashboard');
+					}
+					
+				}).error(function(error){
+					$location.path('/login');
+				});
+				
+			}
+			else
+			{
+				$scope.loginForm.username.$setDirty();
+				$scope.loginForm.password.$setDirty();
+			}
+			
+			
 		};
 		
 		

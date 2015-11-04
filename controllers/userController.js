@@ -2,32 +2,6 @@ var wdywd = angular.module('wdywdApp')
 	.controller('userController', function($rootScope, $scope, $location, ManipulateSuggestion, jwtHelper, getCustomSuggestions, ManipulateSuggestion){
 		$scope.userSuggestions = {};
 
-		/*
-$scope.init = function(){
-			//lets get the token from the local storage... if there is one
-			$scope.token = localStorage['jwt'];
-			
-			//here we create a post object that will be recieved in the API
-			$scope.tokenRequest = {token: $scope.token};
-	
-			
-			
-			UserAuthentication.userLoggedIn($scope.tokenRequest).success(function(data){
-				if(data === '1'){
-					console.log('made it');
-					$scope.token = localStorage['jwt'];
-					$scope.tokenDecoded = jwtHelper.decodeToken($scope.token);
-					$scope.username = $scope.tokenDecoded.username;
-				}//else if handled by the http interceptor
-			
-			}).error(function(error){
-				//I choose you, httpinterceptor
-				$rootScope.userLoggingIn = error;
-			}).then(function(data){
-				console.log(data)
-			});
-		};
-*/
 
 		$scope.init = function(){
 			var token = localStorage['jwt'];
@@ -35,6 +9,7 @@ $scope.init = function(){
 			$scope.username = $scope.tokenDecoded.username;
 			//get custom suggestions
 			$scope.userSuggestions = angular.copy(getCustomSuggestions)
+			$rootScope.loginControllerError = false;
 		}
 		
 		$scope.init();

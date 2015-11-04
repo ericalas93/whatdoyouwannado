@@ -485,6 +485,23 @@ div.ng-scope
 	font-weight: 300;
 	width: 100%;
 	
+	.search-suggestions
+	{
+		margin-top: 10px;
+		width: 50% ;
+		margin-left: 25%;
+		font-weight: 100;
+		color: $defualt_font_color;
+		background-color: transparent;
+		border: none;
+		border-bottom: 1px solid $default_font_color_alternative;
+		padding-left: 10%;
+	}
+	.search-suggestions:focus
+	{
+		outline: none;
+	}
+	
 	.dashboard-message
 	{
 		width: 80%;

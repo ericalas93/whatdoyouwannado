@@ -313,6 +313,18 @@ div.ng-scope {
   color: #ebeef6;
   font-weight: 300;
   width: 100%; }
+  .user-suggestions.ng-scope .search-suggestions {
+    margin-top: 10px;
+    width: 50%;
+    margin-left: 25%;
+    font-weight: 100;
+    color: #ebeef6;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #e1e4ec;
+    padding-left: 10%; }
+  .user-suggestions.ng-scope .search-suggestions:focus {
+    outline: none; }
   .user-suggestions.ng-scope .dashboard-message {
     width: 80%;
     margin-left: 10%; }

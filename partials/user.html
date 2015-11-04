@@ -11,8 +11,9 @@
 		Add a new activity to do, <br /> <button class = "transparent-btn long-btn small-isolate" ng-click="newSuggestion()">New Suggestion!</button><br />
 		or view your current suggestions:
 	</div>
+	<input type="text" class = "search-suggestions" ng-model = "searchSuggestions" placeholder="Search Suggestions" />
 	<ul>
-		<li ng-repeat ="suggestions in userSuggestions">
+		<li ng-repeat ="suggestions in userSuggestions | filter:searchSuggestions">
 		
 				<i class="fa fa-lightbulb-o fa-2x"></i>
 				<div class = "left-side-options">

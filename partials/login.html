@@ -9,8 +9,18 @@
 
 	<i class="fa fa-key"></i><input type="password" name="password" ng-model = "loginInfo.password" placeholder="Password" required/><br />
 	
-	<div class = "login-field-error-message" ng-messages = "loginForm.$error" ng-if="loginForm.username.$touched || loginForm.username.$dirty || loginForm.password.$touched || loginForm.password.$dirty">
+	<!--
+<div class = "login-field-error-message" ng-messages = "loginForm.$error" ng-if="(loginForm.username.$touched )|| (loginForm.username.$dirty  )|| (loginForm.password.$touched )|| (loginForm.password.$dirty)">
 		<div ng-message="required">Username/password is required</div>
+	</div>
+-->
+
+	<div class = "login-field-error-message" ng-messages = "loginForm.username.$error" ng-if="(loginForm.username.$touched && loginForm.username.$invalid)">
+		<div ng-message="required">Username is required</div>
+	</div>
+	
+	<div class = "login-field-error-message" ng-messages = "loginForm.password.$error" ng-if=" (loginForm.password.$touched && loginForm.password.$invalid)">
+		<div ng-message="required">Password is required</div>
 	</div>
 	
 	<div class = "login-error-message" ng-if="loginControllerError" sty>
@@ -29,25 +39,31 @@
 
 <form class = "user-login-form" name = "signUpForm">
 
-	<i class="fa fa-user"></i><input type="text" name = "username" ng-model="newUserForm.username" placeholder="User Name" ng-minlength="4" required/><br />
+	<i class="fa fa-user"></i><input type="text" name = "username" ng-model="newUserForm.username" placeholder="User Name" ng-minlength="4" ng-maxlength = "11" ng-pattern = "/^[a-zA-Z0-9._]+$/" required/><br />
 	
 	
 	<i class="fa fa-envelope"></i><input type="text" name = "email" ng-model ="newUserForm.email" placeholder="Email Address" ng-minlength="1" required /><br />
 	
 
-	<i class="fa fa-key"></i><input type="password" name = "password" ng-model ="newUserForm.password" placeholder="Password" ng-minlength = "6" required/><br />
+	<i class="fa fa-key"></i><input type="password" name = "password" ng-model ="newUserForm.password" placeholder="Password" ng-minlength = "6" ng-pattern = "/^[a-zA-Z0-9._]+$/"  required/><br />
 	
-	<div class = "signup-error" ng-messages = "signUpForm.username.$error" ng-if = "signUpForm.username.$touched" >
+	<div class = "signup-error" ng-messages = "signUpForm.username.$error" ng-if = "signUpForm.username.$touched && signUpForm.username.$invalid" >
 		<div ng-message = "required">Username required</div>
-		<div ng-message = "minlength">Username must be at least 4 characters</div>
+		<div ng-message = "minlength">Username is too short. (Min. 4 characters></div>
+		<div ng-message = "maxlength">Username is too long. (Max. 11 characters)</div>
+		<div ng-message = "pattern">Only a-z, A-Z, 0-9, _, and . allowed</div>
 	</div>
-	<div class = "signup-error" ng-messages = "signUpForm.email.$error" ng-if = "signUpForm.email.$touched" >
+	<div class = "signup-error" ng-messages = "signUpForm.email.$error" ng-if = "signUpForm.email.$touched && signUpForm.email.$invalid" >
 		<div ng-message = "required">Email is required</div>
 		<div ng-message = "minlength">Email is too short</div>
 	</div>
-	<div class = "signup-error" ng-messages = "signUpForm.password.$error" ng-if = "signUpForm.password.$touched" >
+	<div class = "signup-error" ng-messages = "signUpForm.password.$error" ng-if = "signUpForm.password.$touched && signUpForm.password.$invalid" >
 		<div ng-message = "required">Password is required</div>
 		<div ng-message = "minlength">Password must be at least 6 characters</div>
+		<div ng-message = "pattern">Only a-z, A-Z, 0-9, _, and . allowed</div>
+	</div>
+	<div class = "signup-error" ng-if = "userNameTaken">
+		User name is already taken.
 	</div>
 
 	<button class="transparent-btn small-btn" ng-disabled = "!signUpForm.$valid" ng-click="signUpUser()">Sign Up!</button>

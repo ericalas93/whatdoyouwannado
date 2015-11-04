@@ -44,10 +44,17 @@ var wdywd = angular.module('wdywdApp')
 			$scope.newUser = angular.copy($scope.newUserForm);
 			
 			UserAuthentication.postNewUser($scope.newUser).success(function(data){
-				//lets set up the JWT and store that along wiht the username inside the localStorage
-				localStorage.setItem("jwt", data);
-				localStorage.setItem("username", $scope.newUser.username); 
-				$location.path('/dashboard');
+				if(data == 'fail' || data == "taken"){
+					$scope.userNameTaken = true;
+				}
+				else{
+					$scope.userNameTaken = false;
+					//lets set up the JWT and store that along wiht the username inside the localStorage
+					localStorage.setItem("jwt", data);
+					localStorage.setItem("username", $scope.newUser.username); 
+					$location.path('/dashboard');
+				}
+				
 			}).error(function(error){
 				$location.path('/login');
 			})
@@ -57,10 +64,10 @@ var wdywd = angular.module('wdywdApp')
 			//they entered a username
 			if($scope.loginInfo.username !== undefined && $scope.loginInfo.password !== undefined){
 				$scope.loggedInUser = angular.copy($scope.loginInfo);
+
 				
 				//this allows the username to be saved after redirect; see line XX for local saving
 				$rootScope.loggingInUsername = $scope.loggedInUser.username;
-				
 				UserAuthentication.logInUser($scope.loggedInUser).success(function(data){
 					//did we get a good response?
 					if(data == 'no such user' || data == "fail"){
@@ -80,11 +87,7 @@ var wdywd = angular.module('wdywdApp')
 				});
 				
 			}
-			else
-			{
-				$scope.loginForm.username.$setDirty();
-				$scope.loginForm.password.$setDirty();
-			}
+
 			
 			
 		};

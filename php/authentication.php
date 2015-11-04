@@ -9,6 +9,7 @@
 		case 'login_user': login_user(); break;
 		case 'check_log': userLoggedIn(); break;
 		case 'test': test(); break;
+		default: break;
 	}
 	
 	
@@ -17,22 +18,43 @@
 		//make sure the username is aokay and not already taken
 		global $conn;
 		$data 		= json_decode(file_get_contents('php://input'));
-		$username 	= $data->username;
-		$email 		= $data->email;
-		$password 	= $data->password;
+		$username 	= htmlspecialchars($data->username);
+		$email 		= htmlspecialchars($data->email);
+		$password 	= htmlspecialchars($data->password);
 		
-		$sql = "INSERT INTO members (member_id, member_name, member_email, member_password) VALUES (null, '$username', '$email', '$password')";
+		//check if username is already taken
 		
-		//create a new table for this user and copy and paste the default suggestions
-		create_new_member_table($username);
+		if($sql = $conn->prepare("SELECT * FROM members where member_name = ?")){
+					
+			$sql->bind_param('s', $username);
+			$sql->execute();
+			$result = $sql->get_result();
 		
-		if (mysqli_query($conn, $sql)) {
-		   // echo $username;
-		   echo create_jwt($username);
-		} else {
-		    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+			
+			if($result->num_rows > 0 )
+			{
+				//we already have that user name taken. 
+				echo "taken";
+				
+			}else{
+				if($sql = $conn->prepare("INSERT INTO members (member_id, member_name, member_email, member_password) VALUES (null, ?, ?, ?)")){
+					$sql->bind_param('sss', $username, $email, $password);
+					if($sql->execute()){
+						//create a new table for this user and copy and paste the default suggestions
+						create_new_member_table($username);
+						echo create_jwt($username);
+					}else{
+						echo "Error";
+					}
+				}
+			}
+			
+		}else{
+			echo "fail";
 		}
 
+		
+		
 	}
 	
 	function login_user(){
@@ -40,25 +62,33 @@
 	
 		global $conn, $loggedIn;
 		$data 		= json_decode(file_get_contents('php://input'));
-		$username 	= $data->username;
-		$password 	= $data->password;
-
-		$sql = "SELECT * FROM members where member_name = '$username'";
+		$username 	= htmlspecialchars($data->username);
+		$password 	= htmlspecialchars($data->password);
+		//hash it
 		
-		$result = mysqli_query($conn, $sql);
+		if($sql = $conn->prepare("SELECT * FROM members where member_name = ?")){
+					
+			$sql->bind_param('s', $username);
+			$sql->execute();
+			$result = $sql->get_result();
 		
-		if(mysqli_num_rows($result) > 0){
-			$row = mysqli_fetch_assoc($result);
 			
-			if($row['member_password'] !== $password ){
-				echo "fail";	
+			if($result->num_rows > 0 )
+			{
+				while($row = $result->fetch_assoc()){
+					if($row['member_password'] !== $password ){
+						echo "fail";	
+					}else{
+						$token = create_jwt($username);
+						echo $token;
+					} 
+				}
 			}else{
-				$token = create_jwt($username);
-				echo $token;
-			} 
+				echo "no such user";
+			}
 			
 		}else{
-			echo "no such user";
+			echo "fail";
 		}
 	}
 	

@@ -53,37 +53,38 @@ var wdywd = angular.module('wdywdApp')
 			
 			$scope.tableName = {tableName: $scope.usernameTableName}
 			ManipulateSuggestion.getSuggestion($scope.tableName).then(function(result){
-				//lets get how many suggestions there are
-				var numberOfSuggestions = result.length;
-				//lets store the results, dont forget to clear the list once we add a new element.
-				$scope.resultSuggestions = angular.copy(result);	
-				
-				//lets pick a random one to try and add to the list!
-				var randomSuggestionId = Math.floor(Math.random() * (numberOfSuggestions -1 ) + 1);
-				
-				//check if the suggestion is already in the list
-				var alreadySuggested = $scope.containsId($scope.listOfSuggestions, $scope.resultSuggestions[randomSuggestionId]);
-				
-				while(alreadySuggested && ($scope.listOfSuggestions.length < 3)){
-					//hey we finally got a repeat
-					//lets generate a new id
-					randomSuggestionId = Math.floor(Math.random() * numberOfSuggestions);
-					//lets update the conditional
-					alreadySuggested = $scope.containsId($scope.listOfSuggestions, $scope.resultSuggestions[randomSuggestionId]);	
+				console.log(result);
+				if(result != 'invalid'){
+					//lets get how many suggestions there are
+					var numberOfSuggestions = result.length;
+					//lets store the results, dont forget to clear the list once we add a new element.
+					$scope.resultSuggestions = angular.copy(result);	
+					
+					//lets pick a random one to try and add to the list!
+					var randomSuggestionId = Math.floor(Math.random() * (numberOfSuggestions -1 ) + 1);
+					
+					//check if the suggestion is already in the list
+					var alreadySuggested = $scope.containsId($scope.listOfSuggestions, $scope.resultSuggestions[randomSuggestionId]);
+					
+					while(alreadySuggested && ($scope.listOfSuggestions.length < 3)){
+						//hey we finally got a repeat
+						//lets generate a new id
+						randomSuggestionId = Math.floor(Math.random() * numberOfSuggestions);
+						//lets update the conditional
+						alreadySuggested = $scope.containsId($scope.listOfSuggestions, $scope.resultSuggestions[randomSuggestionId]);	
+					}
+					
+					//yeah its under three, lets add it, remove true when we add a limit
+					if( $scope.listOfSuggestions.length < 3 || true){
+						$scope.listOfSuggestions.push($scope.resultSuggestions[randomSuggestionId])
+					}else{
+						//theres now more than 3
+						//make them wait
+						$scope.limitMessage = 'you have reached your limit, please wait.';
+						$scope.limitButtonDisable = false;
+						//lets call a function that will make them wait 3 minutes
+					}	
 				}
-				
-				//yeah its under three, lets add it, remove true when we add a limit
-				if( $scope.listOfSuggestions.length < 3 || true){
-					$scope.listOfSuggestions.push($scope.resultSuggestions[randomSuggestionId])
-				}else{
-					//theres now more than 3
-					//make them wait
-					$scope.limitMessage = 'you have reached your limit, please wait.';
-					$scope.limitButtonDisable = false;
-					//lets call a function that will make them wait 3 minutes
-				}
-				
-			
 			});
 			
 			

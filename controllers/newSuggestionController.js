@@ -56,7 +56,8 @@ var wdywd = angular.module('wdywdApp')
 			$scope.newIdea.username = $scope.username;
 			
 			ManipulateSuggestion.postSuggestion($scope.newIdea).then(function(data){
-				if(data.data === '1'){
+				console.log(data)
+				if(data.data === '11'){
 					$scope.isItSubmitted = true;
 					//we can clear the form data since the post was successful
 					$scope.reset();

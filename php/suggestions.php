@@ -21,37 +21,56 @@
 		//sanatize tho
 		$table_name = $_GET['tableName'];
 		$suggestion_id = $_GET['id'];
-	
 		
-		if($suggestion_id === null){
-			//get all suggestions
-			$sql = "SELECT * FROM $table_name";
+		//make sure the table being requested in the right table name and not something like an injection command
+		$accepted_tables = get_tables();
+		
+		if(in_array($table_name, $accepted_tables)){
+			$table_name = htmlspecialchars($table_name);
 			
-		}else{
-			//we are editting, lets get the specific suggestion
-			$sql = 	"SELECT * FROM $table_name WHERE suggestion_id = $suggestion_id";
+			if($suggestion_id === null){
+				//get all suggestions
+				//since we cant prepare 
+				$sql = $conn->prepare("SELECT * FROM $table_name");
+				if(!$sql){
+					echo 'invalid';
+				}
+				
+			}else{
+				$suggestion_id = htmlspecialchars($suggestion_id);
+				//we are editting, lets get the specific suggestion
+				$sql = $conn->prepare("SELECT * FROM $table_name WHERE suggestion_id = ?");
+				$sql->bind_param("i", $suggestion_id);
+			}
+			
+			
+			$sql->execute();
+			$result = $sql->get_result();
+			
+			if ($result->num_rows > 0) {
+			    while($rows = $result->fetch_assoc()) {
+					$data[] = array(
+						"id" => $rows['suggestion_id'],
+						"suggestion_name" => $rows['suggestion_title'],
+						"suggestion_category" => $rows['suggestion_category'],
+						"suggestion_price" => $rows['suggestion_price']
+					);
+			    }
+			} else {
+			    echo 'invalid';
+			}
+			
+		
+			$json_encoded = json_encode($data, JSON_PRETTY_PRINT);
+			
+			echo $json_encoded;	
+			
 		}
-		
-		$result = mysqli_query($conn, $sql);
-		
-		
-		if (mysqli_num_rows($result) > 0) {
-		    while($rows = mysqli_fetch_assoc($result)) {
-				$data[] = array(
-					"id" => $rows['suggestion_id'],
-					"suggestion_name" => $rows['suggestion_title'],
-					"suggestion_category" => $rows['suggestion_category'],
-					"suggestion_price" => $rows['suggestion_price']
-				);
-		    }
-		} else {
-		    echo "0 results";
+		else{
+			//someone is trying to send another type of table name
+			echo 'invalid';
 		}
-		
-	
-		$json_encoded = json_encode($data, JSON_PRETTY_PRINT);
-		
-		echo $json_encoded;
+				
 	}
 	
 	function post_suggestion(){
@@ -69,11 +88,20 @@
 		userLoggedIn($token);
 		flush();
 		
-		$sql = "INSERT INTO $username (suggestion_id, suggestion_title, suggestion_category, suggestion_price) VALUES (null, '$suggestion_name', '$suggestion_category', '$suggestion_price')";
+		//lets make sure we have a valid table
+		$accepted_tables = get_tables();
+		if(in_array($username, $accepted_tables)){
+			$username = htmlspecialchars($username);
+			if($sql = $conn->prepare("INSERT INTO $username (suggestion_id, suggestion_title, suggestion_category, suggestion_price) VALUES (null, ?, ?, ?)")){
+				$sql->bind_param('sss', $suggestion_name, $suggestion_category, $suggestion_price);
+				if($sql->execute()){
+					echo true;
+				}
+				else
+					echo false;
+			}
+		}
 		
-		if (!mysqli_query($conn, $sql)) {
-			echo false;
-		} 
 		
 	}
 	
@@ -92,11 +120,17 @@
 		userLoggedIn($token);
 		flush();
 		
-		$sql = "UPDATE $username SET suggestion_title = '$suggestion_name', suggestion_category = '$suggestion_category', suggestion_price = '$suggestion_price' WHERE suggestion_id = $suggestion_id";
-		
-		if (!mysqli_query($conn, $sql)) {
-			echo false;
-		} 
+		$accepted_tables = get_tables();
+		if(in_array($username, $accepted_tables)){
+			$username = htmlspecialchars($username);
+			if($sql = $conn->prepare("UPDATE $username SET suggestion_title = ?, suggestion_category = ?, suggestion_price = ? WHERE suggestion_id = ?")){
+				$sql->bind_param('ssss', $suggestion_name, $suggestion_category, $suggestion_price, $suggestion_id);
+				if( !($sql->execute()) ){
+					echo false;
+				}
+			}
+		}
+
 		
 	}
 	
@@ -113,13 +147,34 @@
 		userLoggedIn($token);
 		flush();
 		
-		$sql = "DELETE FROM $tablename WHERE suggestion_id = $suggestion_id";
+		
+		$accepted_tables = get_tables();
+		if(in_array($tablename, $accepted_tables)){
+			$tablename = htmlspecialchars($tablename);
+			$suggestion_id = htmlspecialchars($suggestion_id);
+			if($sql = $conn->prepare("DELETE FROM $tablename WHERE suggestion_id = ?")){
+				$sql->bind_param('s', $suggestion_id);
+				if( !($sql->execute()) ){
+					echo false;
+				}
+			}
+		}
+
+		
+	}
+	
+	function get_tables(){
+		global $conn;
+		$tableList = array();
+		
+		$sql = "SHOW TABLES IN wdywd";
+		$result = $conn->query($sql);
 		
 		
-		if (!mysqli_query($conn, $sql)) {
-			echo false;
-		} 
-		
+		while($row = $result->fetch_assoc()){
+			$tableList[] = $row['Tables_in_wdywd'];
+		}
+		return $tableList;
 	}
 	
 	

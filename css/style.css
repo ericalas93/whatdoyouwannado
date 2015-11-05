@@ -221,6 +221,13 @@ div.ng-scope {
         color: #ebeef6;
         text-align: left; }
 
+.limit-message.ng-scope {
+  color: red;
+  position: relative;
+  width: 80%;
+  margin-left: 10%;
+  font-weight: 300; }
+
 /**********************************
 	
 			New Suggestion
@@ -388,8 +395,7 @@ div.ng-scope {
     margin-top: 10%; }
   .edit-suggestion-form.ng-scope .error-form.ng-scope {
     position: relative;
-    color: red;
-    margin-top: -15px; }
+    color: red; }
 
 .edit-submitted.ng-scope {
   margin-top: 100px;
@@ -399,8 +405,9 @@ div.ng-scope {
   margin-left: 10%; }
   .edit-submitted.ng-scope ul {
     list-style: none; }
-  .edit-submitted.ng-scope a, .edit-submitted.ng-scope a:link, .edit-submitted.ng-scope a:visited {
-    color: #e1e4ec; }
+
+.successful-submit.ng-scope a, .successful-submit.ng-scope a:link, .successful-submit.ng-scope a:visited {
+  color: #e1e4ec; }
 
 @media only screen and (max-width: px) {
   .edit-suggestion-form.ng-scope {
@@ -429,7 +436,24 @@ div.ng-scope {
       margin-top: 10%; }
     .new-suggestion.ng-scope .new-suggestion-form .error-form.ng-scope {
       position: relative;
-      color: red;
-      margin-top: -15px; }
+      color: red; }
+
+.unsuccessful-submit.ng-scope {
+  color: red;
+  font-weight: 300;
+  position: relative;
+  margin-top: 100px;
+  width: 80%;
+  margin-left: 10%; }
+
+.successful-submit.ng-scope {
+  color: #ebeef6;
+  font-weight: 300;
+  position: relative;
+  margin-top: 100px;
+  width: 80%;
+  margin-left: 10%; }
+  .successful-submit.ng-scope ul {
+    list-style: none; }
 
 /*# sourceMappingURL=style.css.map */

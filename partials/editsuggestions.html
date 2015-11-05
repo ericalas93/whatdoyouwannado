@@ -32,8 +32,8 @@
 	<button class = "transparent-btn large-btn" type="button" ng-click="confirm()">Update</button>
 </form>
 
-<div ng-if="isItSubmitted" class = "edit-submitted">
-	Your new suggestion has been posted! Please wait to be redirected back to your dashboard, or <a href = "/dashboard">click here.</a>
+<div ng-if="isItSubmitted" class = "successful-submit">
+	Your new suggestion has been editted! Please wait to be redirected back to your dashboard, or <a href = "/dashboard">click here.</a>
 	<ul>
 		<li>Title: {{idea.name}}</li>
 		<li>Category: {{idea.category}}</li>
@@ -41,8 +41,9 @@
 	</ul>
 	
 	
-	<div ng-if = "unsuccessfulSubmit">
-		We are sorry, there seems to have been an error! Please try again.
-	</div>
+	
 </div>
 	
+<div class = "unsuccessful-submit" ng-if = "unsuccessfulSubmit">
+	We are sorry, there seems to have been an error! Please try again.
+</div>

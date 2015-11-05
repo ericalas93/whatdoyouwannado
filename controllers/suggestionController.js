@@ -53,7 +53,6 @@ var wdywd = angular.module('wdywdApp')
 			
 			$scope.tableName = {tableName: $scope.usernameTableName}
 			ManipulateSuggestion.getSuggestion($scope.tableName).then(function(result){
-				console.log(result);
 				if(result != 'invalid'){
 					//lets get how many suggestions there are
 					var numberOfSuggestions = result.length;
@@ -65,8 +64,8 @@ var wdywd = angular.module('wdywdApp')
 					
 					//check if the suggestion is already in the list
 					var alreadySuggested = $scope.containsId($scope.listOfSuggestions, $scope.resultSuggestions[randomSuggestionId]);
-					
-					while(alreadySuggested && ($scope.listOfSuggestions.length < 3)){
+					//< N, where N = limit
+					while(alreadySuggested  && ($scope.listOfSuggestions.length < numberOfSuggestions  ) ){
 						//hey we finally got a repeat
 						//lets generate a new id
 						randomSuggestionId = Math.floor(Math.random() * numberOfSuggestions);
@@ -75,13 +74,14 @@ var wdywd = angular.module('wdywdApp')
 					}
 					
 					//yeah its under three, lets add it, remove true when we add a limit
-					if( $scope.listOfSuggestions.length < 3 || true){
+					if( $scope.listOfSuggestions.length < numberOfSuggestions){
 						$scope.listOfSuggestions.push($scope.resultSuggestions[randomSuggestionId])
 					}else{
 						//theres now more than 3
 						//make them wait
-						$scope.limitMessage = 'you have reached your limit, please wait.';
-						$scope.limitButtonDisable = false;
+						//$scope.limitMessage = 'You have reached your limit, please wait.';
+						$scope.limitMessage = 'You have exhausted all your suggestions!';
+						$scope.limitButtonDisable = true;
 						//lets call a function that will make them wait 3 minutes
 					}	
 				}

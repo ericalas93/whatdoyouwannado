@@ -353,6 +353,15 @@ div.ng-scope
 	}	
 }
 
+.limit-message.ng-scope
+{
+	color: red;
+	position: relative;
+	width: 80%;
+	margin-left: 10%;
+	font-weight: 300;
+}
+
 
 /**********************************
 	
@@ -614,7 +623,6 @@ div.ng-scope
 	{
 		position: relative;
 		color: red;
-		margin-top: -15px;
 	}
 	
 	
@@ -632,11 +640,17 @@ div.ng-scope
 	{
 		list-style: none;
 	}
+	
+}
+
+.successful-submit.ng-scope
+{
 	a, a:link, a:visited
 	{
 		color: $default_font_color_alternative;
 	}
 }
+	
 
 @media only screen and (max-width: px)
 {
@@ -685,11 +699,35 @@ div.ng-scope
 		{
 			position: relative;
 			color: red;
-			margin-top: -15px;
+// 			margin-top: 15px;
 		}
 		
 		
 	}
 
 	
+}
+
+.unsuccessful-submit.ng-scope
+{
+	color: red;
+	font-weight: 300;
+	position: relative;
+	margin-top: 100px;
+	width: 80%;
+	margin-left: 10%;
+}
+
+.successful-submit.ng-scope
+{
+	color: $defualt_font_color;
+	font-weight: 300;
+	position: relative;
+	margin-top: 100px;
+	width: 80%;
+	margin-left: 10%;
+	ul
+	{
+		list-style: none;
+	}
 }

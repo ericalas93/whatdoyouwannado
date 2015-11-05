@@ -5,6 +5,9 @@
 	Get one of many different suggestions from the default list, however, if there are other ideas you'd like to add to the list, sign up or login to create your own list of activities!
 </p>
 
+<div class = "limit-message">
+	{{limitMessage}}
+</div>
 
 
 <div class = "list-of-suggestions" ng-if="listOfSuggestions.length > 0">
@@ -24,4 +27,3 @@
 
 <button class = "transparent-btn large-btn" ng-click = "getSuggestion()" ng-disabled = "limitButtonDisable">Get some ideas!</button>
 
-{{limitMessage}}

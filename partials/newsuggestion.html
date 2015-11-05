@@ -37,7 +37,7 @@
 <!-- 		<input type="button" ng-click="save(idea)" value="save" /> -->
 	</form>
 	
-	<div ng-if="isItSubmitted">
+	<div class = "successful-submit" ng-if="isItSubmitted">
 		Your new suggestion has been posted!
 		<ul>
 			<li>Title: {{newIdea.name}}</li>
@@ -46,7 +46,7 @@
 		</ul>
 	</div>
 	
-	<div ng-if = "unsuccessfulSubmit">
+	<div class = "unsuccessful-submit" ng-if = "unsuccessfulSubmit">
 		We are sorry, there seems to have been an error! Please try again.
 	</div>
 	

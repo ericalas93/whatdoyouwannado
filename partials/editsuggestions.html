@@ -15,10 +15,33 @@
 	
 	<div class = "top-isolate">	
 		<label>Idea Category:</label><br /> <select name="idea-select" id = "idea-select" 
-					ng-options="option.name for option in data.availableOptions track by option.name" 
-					ng-model = "data.selectedOption"></select><br />
+					ng-options="option.name for option in category.availableOptions track by option.name" 
+					ng-model = "category.selectedOption"></select><br />
 							
 	</div>
+	
+	<div class = "top-isolate">				
+			<label>Ideal Time: </label><select name="idea-time" id = "idea-time" 
+						ng-options="option.name for option in acceptableTime.availableOptions track by option.name" 
+						ng-model = "acceptableTime.selectedOption"></select><br />
+		</div>					
+			
+		<div class = "top-isolate">				
+			<label>Ideal Temperature: </label><select name="idea-temperature" id = "idea-time" 
+						ng-options="option.description for option in acceptableTemperature.availableOptions track by option.description" 
+						ng-model = "acceptableTemperature.selectedOption"></select><br />
+		</div>	
+		
+		<div class = "top-isolate">
+			<label>Ideal Condition (blank defaults to 'All'): </label>
+			<select name="conditionSelect" id="conditionSelect" ng-model="conditionSelection" multiple>
+				<option value="All">All</option>
+				<option value="Clear">Clear</option>
+				<option value="Rain">Rain</option>
+				<option value="Snow">Snow</option>
+				<option value="Other">Other</option>
+		    </select>
+		</div>
 	
 	<div class = "top-isolate">					
 		<label class = "top-isolate">Idea Price: (Free, $, $$, $$$)</label>

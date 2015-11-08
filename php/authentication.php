@@ -22,6 +22,8 @@
 		$email 		= htmlspecialchars($data->email);
 		$password 	= htmlspecialchars($data->password);
 		
+		$password_hash = password_hash($password, PASSWORD_DEFAULT);
+		
 		//check if username is already taken
 		
 		if($sql = $conn->prepare("SELECT * FROM members where member_name = ?")){
@@ -38,7 +40,7 @@
 				
 			}else{
 				if($sql = $conn->prepare("INSERT INTO members (member_id, member_name, member_email, member_password) VALUES (null, ?, ?, ?)")){
-					$sql->bind_param('sss', $username, $email, $password);
+					$sql->bind_param('sss', $username, $email, $password_hash);
 					if($sql->execute()){
 						//create a new table for this user and copy and paste the default suggestions
 						create_new_member_table($username);
@@ -64,7 +66,6 @@
 		$data 		= json_decode(file_get_contents('php://input'));
 		$username 	= htmlspecialchars($data->username);
 		$password 	= htmlspecialchars($data->password);
-		//hash it
 		
 		if($sql = $conn->prepare("SELECT * FROM members where member_name = ?")){
 					
@@ -76,7 +77,7 @@
 			if($result->num_rows > 0 )
 			{
 				while($row = $result->fetch_assoc()){
-					if($row['member_password'] !== $password ){
+					if( !password_verify($password, $row['member_password']) ){
 						echo "fail";	
 					}else{
 						$token = create_jwt($username);
@@ -161,7 +162,10 @@
 		suggestion_id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
 		suggestion_title VARCHAR(100) NOT NULL,
 		suggestion_category VARCHAR(50) NOT NULL,
-		suggestion_price VARCHAR(5) NOT NULL
+		suggestion_price VARCHAR(5) NOT NULL, 
+		suggestion_time VARCHAR(10) NOT NULL, 
+		suggestion_weather VARCHAR(100) NOT NULL,
+		suggestion_temp VARCHAR(5) NOT NULL
 		)";
 		
 		if (mysqli_query($conn, $sql)) {

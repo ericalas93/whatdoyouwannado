@@ -7,8 +7,12 @@ var wdywd = angular.module('wdywdApp')
 			var token = localStorage['jwt'];
 			$scope.tokenDecoded = jwtHelper.decodeToken(token);
 			$scope.username = $scope.tokenDecoded.username;
-			//get custom suggestions
-			$scope.userSuggestions = angular.copy(getCustomSuggestions)
+			//get custom suggestions, our API returns 'invalidnull' if there is no suggestions in the DB
+			if(getCustomSuggestions === 'invalidnull')
+				$scope.userSuggestions = [];
+			else
+				$scope.userSuggestions = angular.copy(getCustomSuggestions)
+			console.log(typeof $scope.userSuggestions)
 			$rootScope.loginControllerError = false;
 		}
 		

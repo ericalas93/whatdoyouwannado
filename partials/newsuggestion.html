@@ -20,21 +20,44 @@
 		
 		<div class = "top-isolate">				
 		<label>Idea Category: </label><select name="idea-select" id = "idea-select" 
-						ng-options="option.name for option in data.availableOptions track by option.name" 
-						ng-model = "data.selectedOption"></select><br />
-		</div>						
+						ng-options="option.name for option in category.availableOptions track by option.name" 
+						ng-model = "category.selectedOption"></select><br />
+		</div>	
+		
+		<div class = "top-isolate">				
+			<label>Ideal Time: </label><select name="idea-time" id = "idea-time" 
+						ng-options="option.name for option in acceptableTime.availableOptions track by option.name" 
+						ng-model = "acceptableTime.selectedOption"></select><br />
+		</div>					
+			
+		<div class = "top-isolate">				
+			<label>Ideal Temperature: </label><select name="idea-temperature" id = "idea-time" 
+						ng-options="option.description for option in acceptableTemperature.availableOptions track by option.description" 
+						ng-model = "acceptableTemperature.selectedOption"></select><br />
+		</div>	
+		
+		<div class = "top-isolate">
+			<label>Ideal Condition (blank defaults to 'All'): </label>
+			<select name="conditionSelect" id="conditionSelect" ng-model="conditionSelection" multiple>
+				<option value="All">All</option>
+				<option value="Clear">Clear</option>
+				<option value="Rain">Rain</option>
+				<option value="Snow">Snow</option>
+				<option value="Other">Other</option>
+		    </select>
+		</div>
 			
 		<div class = "top-isolate">							
-		<label>Idea Price: (Free, $, $$, $$$)</label>
-		<input type="text" name ="suggestionPrice" ng-model = "idea.price"  ng-pattern = "/(free|\${1,3})/i" required /><br />
-		<div class = "error-form" ng-messages="suggestionForm.suggestionPrice.$error" ng-if="suggestionForm.suggestionPrice.$touched">
-			<div ng-message="required">Price is required.</div>
-			<div ng-message="pattern">Price must be: "Free", "$", "$$", or "$$$"</div>
-		</div>
+			<label>Idea Price: (Free, $, $$, $$$)</label>
+			<input type="text" name ="suggestionPrice" ng-model = "idea.price"  ng-pattern = "/(free|\${1,3})/i" required /><br />
+			<div class = "error-form" ng-messages="suggestionForm.suggestionPrice.$error" ng-if="suggestionForm.suggestionPrice.$touched">
+				<div ng-message="required">Price is required.</div>
+				<div ng-message="pattern">Price must be: "Free", "$", "$$", or "$$$"</div>
+			</div>
 		</div>
 		
 		<button class = "transparent-btn large-btn" type="button" ng-click="confirm(idea)">Save</button>
-<!-- 		<input type="button" ng-click="save(idea)" value="save" /> -->
+
 	</form>
 	
 	<div class = "successful-submit" ng-if="isItSubmitted">

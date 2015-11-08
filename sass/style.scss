@@ -572,6 +572,14 @@ div.ng-scope
 			
 		}
 	}
+	.no-suggestions.ng-scope
+	{
+		margin-top: 20px;
+		color: $default_font_color_alternative;
+		position: relative;
+		width: 80%;
+		margin-left: 10%;
+	}
 	
 		
 }
@@ -624,8 +632,11 @@ div.ng-scope
 		position: relative;
 		color: red;
 	}
-	
-	
+	#conditionSelect
+	{
+		font-weight: 300;
+		color: #000;
+	}	
 }
 
 .edit-submitted.ng-scope
@@ -670,7 +681,7 @@ div.ng-scope
 
 .new-suggestion.ng-scope
 {
-	margin-top: 100px;
+	margin-top: 70px;
 	color: $defualt_font_color;
 	
 	p
@@ -686,7 +697,7 @@ div.ng-scope
 	{
 		width: 80%;
 		font-weight: 100;
-		margin-top: 100px;
+		margin-top: 50px;
 		margin-left: 15%;
 		
 		.input-name
@@ -701,7 +712,11 @@ div.ng-scope
 			color: red;
 // 			margin-top: 15px;
 		}
-		
+		#conditionSelect
+		{
+			font-weight: 300;
+			color: #000;
+		}
 		
 	}
 

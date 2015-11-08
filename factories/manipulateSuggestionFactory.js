@@ -14,7 +14,6 @@ var wdywd = angular.module('wdywdApp')
 			updateSuggestion: function(updatedIdea){ return $http.post('php/suggestions.php?action=edit_suggestion', updatedIdea); }, 
 			deleteSuggestion: function(suggestion){
 				
-				console.log(suggestion)
 				var def = $q.defer();
 				$http.delete('php/suggestions.php?action=delete_suggestion', {params: suggestion} )
 				.success(function(data){

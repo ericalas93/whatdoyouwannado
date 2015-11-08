@@ -11,14 +11,16 @@ var wdywd = angular.module('wdywdApp')
 			$scope.idea = {
 				name: $scope.suggestion.suggestion_name, 
 				category: $scope.suggestion.suggestion_category, 
-				price: $scope.suggestion.suggestion_price
-				
+				price: $scope.suggestion.suggestion_price, 
+				acceptableTime: $scope.suggestion.suggestion_time,
+				acceptableTemperature: $scope.suggestion.suggestion_temperature
 			}
+			$scope.conditionSelection = $scope.suggestion.suggestion_weather.split(', ');
 		}
 		
 		$scope.init(); 
 		
-		$scope.data = {
+		$scope.category = {
 			availableOptions: [
 				{name: 'Misc'},
 				{name: 'Sport'}, 
@@ -29,12 +31,45 @@ var wdywd = angular.module('wdywdApp')
 			selectedOption: {name: $scope.suggestion.suggestion_category}
 		};
 		
+		//options for time frame of activity
+		$scope.acceptableTime = {
+			availableOptions: [
+				{name: 'Both'},
+				{name: 'Day'},
+				{name: 'Night'}
+			], 
+			selectedOption: {name: 'Both'}
+		};
+		
+		//options for acceptable temperature range for activities
+		$scope.acceptableTemperature = {
+			availableOptions: [
+				{description: 'Any Temperature', name: 'DNA'},
+				{description: 'Hot (greater than 80F)', name: 'Hot'},
+				{description: 'Mild (between 50F and 79F', name: 'Mild'},
+				{description: 'Cold (less than 50F)', name: 'Cold'}
+			], 
+			selectedOption: {description: 'Any Temperature', name: 'DNA'}
+		}
+		
+		
+
+		
 		
 		$scope.save = function(){
 			
-			$scope.idea.category = $scope.data.selectedOption.name;
+			//copy the idea the user suggested
+			$scope.newIdea = angular.copy($scope.idea);
+			//add the category, ideal temperature, ideal time, and ideal weather condition
+			$scope.newIdea.category = $scope.category.selectedOption.name;
+			$scope.newIdea.acceptableTime = $scope.acceptableTime.selectedOption.name;
+			$scope.newIdea.acceptableTemperature = $scope.acceptableTemperature.selectedOption.name;
+			//if they deselect all options autodefault to 'All'
+			
+			$scope.newIdea.acceptableCondition = $scope.conditionSelection === undefined ? 'All' : $scope.conditionSelection.join(', ');
+			console.log($scope.newIdea.acceptableCondition)
+			
 			$scope.settingTouched(false);
-
 			$scope.postNewIdea();
 		};
 		
@@ -46,13 +81,13 @@ var wdywd = angular.module('wdywdApp')
 		
 		$scope.postNewIdea = function(){
 			//send over token for auth and username to add to that users specific table!
-			$scope.idea.jwt = $scope.token;
-			$scope.idea.username = $scope.username;
-			$scope.idea.suggestionId = $scope.suggestion.id;
+			$scope.newIdea.jwt = $scope.token;
+			$scope.newIdea.username = $scope.username;
+			$scope.newIdea.suggestionId = $scope.suggestion.id;
 			
 			
 			
-			ManipulateSuggestion.updateSuggestion($scope.idea).then(function(data){
+			ManipulateSuggestion.updateSuggestion($scope.newIdea).then(function(data){
 				if(data.data === '1'){
 					$scope.isItSubmitted = true;
 					//we can clear the form data since the post was successful
@@ -67,7 +102,6 @@ var wdywd = angular.module('wdywdApp')
 		
 		$scope.confirm = function(){
 			if($scope.suggestionForm.$valid){
-			
  				$scope.save();
 			}
 			else{

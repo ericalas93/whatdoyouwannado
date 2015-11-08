@@ -368,6 +368,12 @@ div.ng-scope {
           margin-bottom: 15px;
           color: #e1e4ec;
           text-decoration: none; }
+  .user-suggestions.ng-scope .no-suggestions.ng-scope {
+    margin-top: 20px;
+    color: #e1e4ec;
+    position: relative;
+    width: 80%;
+    margin-left: 10%; }
 
 @media only screen and (max-width: 320px) {
   .user-suggestions.ng-scope {
@@ -396,6 +402,9 @@ div.ng-scope {
   .edit-suggestion-form.ng-scope .error-form.ng-scope {
     position: relative;
     color: red; }
+  .edit-suggestion-form.ng-scope #conditionSelect {
+    font-weight: 300;
+    color: #000; }
 
 .edit-submitted.ng-scope {
   margin-top: 100px;
@@ -418,7 +427,7 @@ div.ng-scope {
 			
 **********************************/
 .new-suggestion.ng-scope {
-  margin-top: 100px;
+  margin-top: 70px;
   color: #ebeef6; }
   .new-suggestion.ng-scope p {
     font-weight: 300;
@@ -429,7 +438,7 @@ div.ng-scope {
   .new-suggestion.ng-scope .new-suggestion-form {
     width: 80%;
     font-weight: 100;
-    margin-top: 100px;
+    margin-top: 50px;
     margin-left: 15%; }
     .new-suggestion.ng-scope .new-suggestion-form .input-name {
       position: relative;
@@ -437,6 +446,9 @@ div.ng-scope {
     .new-suggestion.ng-scope .new-suggestion-form .error-form.ng-scope {
       position: relative;
       color: red; }
+    .new-suggestion.ng-scope .new-suggestion-form #conditionSelect {
+      font-weight: 300;
+      color: #000; }
 
 .unsuccessful-submit.ng-scope {
   color: red;

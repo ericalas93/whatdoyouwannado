@@ -7,7 +7,31 @@ var wdywdApp = angular.module('wdywdApp', ['ngRoute', 'ngMessages', 'angular-jwt
 			})
 			.when('/suggestion', {
 				templateUrl: 'partials/suggestion.html', 
-				controller: 'suggestionController'
+				controller: 'suggestionController', 
+				resolve: {
+					getSuggestionList: function($q, ManipulateSuggestion){
+						//First lets check if theyre logged in
+						
+						
+						var defer = $q.defer(), tableName = {tableName: localStorage['username'] === undefined ? 'default_suggestion' : localStorage['username'] };
+						ManipulateSuggestion.getSuggestion(tableName).then(function(data){
+							defer.resolve(data);
+						});
+						return defer.promise;
+						
+					}, 
+					getCurrentConditions: function($q, Weather){
+						var defer = $q.defer();
+						//check if location permission has been given or not
+						Weather.getLocation().then(function(){
+							Weather.getCurrentWeather().then(function(data){
+								defer.resolve(data);
+							});
+						});
+						return defer.promise;
+						
+					}
+				}
 			})
 			.when('/login', {
 				templateUrl: 'partials/login.html', 

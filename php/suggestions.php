@@ -53,7 +53,10 @@
 						"id" => $rows['suggestion_id'],
 						"suggestion_name" => $rows['suggestion_title'],
 						"suggestion_category" => $rows['suggestion_category'],
-						"suggestion_price" => $rows['suggestion_price']
+						"suggestion_price" => $rows['suggestion_price'], 
+						"suggestion_weather" => $rows['suggestion_weather'], 
+						"suggestion_time" => $rows['suggestion_time'], 
+						"suggestion_temperature" => $rows['suggestion_temp']
 					);
 			    }
 			} else {
@@ -76,10 +79,13 @@
 	function post_suggestion(){
 		global $conn;
 		
-		$data 					= json_decode(file_get_contents("php://input")); 
-		$suggestion_name		= $data->name; 
-		$suggestion_price		= $data->price;
-		$suggestion_category	= $data->category;
+		$data 									= json_decode(file_get_contents("php://input")); 
+		$suggestion_name						= $data->name; 
+		$suggestion_price						= $data->price;
+		$suggestion_category					= $data->category;		
+		$suggestion_acceptable_time				= $data->acceptableTime;
+		$suggestion_acceptable_temperature		= $data->acceptableTemperature;
+		$suggestion_acceptable_condition		= $data->acceptableCondition;
 		
 		$token = $data->jwt;
 		$username = $data->username;
@@ -92,13 +98,13 @@
 		$accepted_tables = get_tables();
 		if(in_array($username, $accepted_tables)){
 			$username = htmlspecialchars($username);
-			if($sql = $conn->prepare("INSERT INTO $username (suggestion_id, suggestion_title, suggestion_category, suggestion_price) VALUES (null, ?, ?, ?)")){
-				$sql->bind_param('sss', $suggestion_name, $suggestion_category, $suggestion_price);
+			if($sql = $conn->prepare("INSERT INTO $username (suggestion_id, suggestion_title, suggestion_category, suggestion_price, suggestion_time, suggestion_weather, suggestion_temp) VALUES (null, ?, ?, ?, ?, ?, ?)")){
+				$sql->bind_param('ssssss', $suggestion_name, $suggestion_category, $suggestion_price, $suggestion_acceptable_time, $suggestion_acceptable_condition, $suggestion_acceptable_temperature);
 				if($sql->execute()){
 					echo true;
 				}
 				else
-					echo false;
+					echo $sql->error;
 			}
 		}
 		
@@ -108,13 +114,18 @@
 	function edit_suggestion(){
 		global $conn;
 		
-		$data 					= json_decode(file_get_contents("php://input")); 
-		$suggestion_name		= $data->name; 
-		$suggestion_price		= $data->price;
-		$suggestion_category	= $data->category;
-		$suggestion_id 			= $data->suggestionId;
-		$token 					= $data->jwt;	
-		$username 				= $data->username;
+		$data 									= json_decode(file_get_contents("php://input")); 
+		$suggestion_name						= $data->name; 
+		$suggestion_price						= $data->price;
+		$suggestion_category					= $data->category;
+		$suggestion_acceptable_time				= $data->acceptableTime;
+		$suggestion_acceptable_temperature		= $data->acceptableTemperature;
+		$suggestion_acceptable_condition		= $data->acceptableCondition;
+		
+		
+		$suggestion_id 							= $data->suggestionId;
+		$token 									= $data->jwt;	
+		$username 								= $data->username;
 		
 		//we dont have to worry about checking what the result is, as as soon as it realizes we arent logged in 401 response header sent and caight by HTTP interceptor
 		userLoggedIn($token);
@@ -123,8 +134,8 @@
 		$accepted_tables = get_tables();
 		if(in_array($username, $accepted_tables)){
 			$username = htmlspecialchars($username);
-			if($sql = $conn->prepare("UPDATE $username SET suggestion_title = ?, suggestion_category = ?, suggestion_price = ? WHERE suggestion_id = ?")){
-				$sql->bind_param('ssss', $suggestion_name, $suggestion_category, $suggestion_price, $suggestion_id);
+			if($sql = $conn->prepare("UPDATE $username SET suggestion_title = ?, suggestion_category = ?, suggestion_price = ?, suggestion_time = ?, suggestion_weather = ?, suggestion_temp = ? WHERE suggestion_id = ?")){
+				$sql->bind_param('sssssss', $suggestion_name, $suggestion_category, $suggestion_price, $suggestion_acceptable_time, $suggestion_acceptable_condition, $suggestion_acceptable_temperature, $suggestion_id);
 				if( !($sql->execute()) ){
 					echo false;
 				}

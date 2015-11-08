@@ -12,7 +12,7 @@
 		or view your current suggestions:
 	</div>
 	<input type="text" class = "search-suggestions" ng-model = "searchSuggestions" placeholder="Search Suggestions" />
-	<ul>
+	<ul ng-if = "userSuggestions.length > 0">
 		<li ng-repeat ="suggestions in userSuggestions | filter:searchSuggestions">
 		
 				<i class="fa fa-lightbulb-o fa-2x"></i>
@@ -29,6 +29,10 @@
 			
 		</li>
 	</ul>
+	<div class ="no-suggestions" ng-if="userSuggestions.length == 0">
+		Hmm, there appears to be no suggestions here. Why not add some?
+	</div>
+		
 </div>
 
 

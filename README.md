@@ -12,7 +12,7 @@ Currently the site is not live, but feel free to clone this repo and upload the 
 
 ##Build
 The technical stuff :)
-This web app was built with AngularJS as the front-end and PHP as the backend (to create some RESTful API's). Geolocation is being used to get location and [Open Weather][1] to retrieve the weather for your location though their API. Authentication was built on JWT and [angular-jwt][2] along with [JWT-PHP][3] for server side JWT authentication. 
+This web app was built with AngularJS as the front-end and PHP as the backend (to create some RESTful API's). Geolocation is being used to get location and [Open Weather][1] to retrieve the weather for your location through their API. Authentication was built on JWT and [angular-jwt][2] along with [JWT-PHP][3] for server side JWT authentication. 
 
 ##Notes
 

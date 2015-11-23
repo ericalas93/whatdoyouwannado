@@ -42,8 +42,9 @@ var wdywd = angular.module('wdywdApp')
 		$scope.signUpUser = function(){
 			//reset it and make sure to add message errors and use pattern to protect from any XSS
 			$scope.newUser = angular.copy($scope.newUserForm);
-			
+						
 			UserAuthentication.postNewUser($scope.newUser).success(function(data){
+				console.log(data)
 				if(data == 'fail' || data == "taken"){
 					$scope.userNameTaken = true;
 				}
@@ -73,7 +74,6 @@ var wdywd = angular.module('wdywdApp')
 					if(data == 'no such user' || data == "fail"){
 						//let redirect just so we can get a login error and autofill the username field... ugly and hacky? yes. I'm sorry.
 						$location.path('/dashboard');
-// 						$scope.loginControllerError = true;
 					}
 					else{		
 						//we got a good login and that means that we can go ahead and store all the info and keep it :) 		

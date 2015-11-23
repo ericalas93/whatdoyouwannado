@@ -12,7 +12,6 @@ var wdywd = angular.module('wdywdApp')
 				$scope.userSuggestions = [];
 			else
 				$scope.userSuggestions = angular.copy(getCustomSuggestions)
-			console.log(typeof $scope.userSuggestions)
 			$rootScope.loginControllerError = false;
 		}
 		

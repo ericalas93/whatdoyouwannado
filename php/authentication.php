@@ -1,6 +1,7 @@
 <?php
 	require('lib/db_info.php');
 	require('jwt/JWT.php');
+	require('mysqlnd_polyfill.php');
 	
 	
 	switch($_GET['action'])
@@ -30,10 +31,10 @@
 					
 			$sql->bind_param('s', $username);
 			$sql->execute();
-			$result = $sql->get_result();
-		
-			
-			if($result->num_rows > 0 )
+			$result = get_result_fill($sql);
+			$username_count = count(array_shift($result));
+
+			if($username_count > 0 )
 			{
 				//we already have that user name taken. 
 				echo "taken";
@@ -60,9 +61,8 @@
 	}
 	
 	function login_user(){
-		
+		global $conn;
 	
-		global $conn, $loggedIn;
 		$data 		= json_decode(file_get_contents('php://input'));
 		$username 	= htmlspecialchars($data->username);
 		$password 	= htmlspecialchars($data->password);
@@ -71,22 +71,23 @@
 					
 			$sql->bind_param('s', $username);
 			$sql->execute();
-			$result = $sql->get_result();
-		
+			$result = get_result_fill($sql);
 			
-			if($result->num_rows > 0 )
+			$data = array_shift($result);
+
+
+			if(count($data) > 0 )
 			{
-				while($row = $result->fetch_assoc()){
-					if( !password_verify($password, $row['member_password']) ){
-						echo "fail";	
-					}else{
-						$token = create_jwt($username);
-						echo $token;
-					} 
-				}
+				if( !password_verify($password, $data['member_password']) ){
+					echo "fail";	
+				}else{
+					$token = create_jwt($username);
+					echo $token;
+				} 
 			}else{
 				echo "no such user";
 			}
+
 			
 		}else{
 			echo "fail";
@@ -175,7 +176,4 @@
 		   mysqli_query($conn, $sql_copy);
 		} 				
 	}
-	
-	function test(){
-		echo 'test from php script';
-	}
+

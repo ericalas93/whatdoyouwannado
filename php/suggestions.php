@@ -1,6 +1,7 @@
 <?php
 	require('lib/db_info.php');
 	require('authentication.php');
+	//require('mysqlnd_polyfill.php');
 	
 	//make switch case to do get, post, delete from $_GET array	
 	$action = $_GET['action'];
@@ -10,13 +11,13 @@
 		case 'post_suggestion': post_suggestion(); break;
 		case 'edit_suggestion': edit_suggestion(); break;
 		case 'delete_suggestion': delete_suggestion(); break;
+		default: break;
 	}
 	
 	//get_suggestion();
 
 	function get_suggestion(){
 		global $conn;
-		
 		
 		//sanatize tho
 		$table_name = $_GET['tableName'];
@@ -26,8 +27,8 @@
 		$accepted_tables = get_tables();
 		
 		if(in_array($table_name, $accepted_tables)){
-			$table_name = htmlspecialchars($table_name);
 			
+			$table_name = htmlspecialchars($table_name);
 			if($suggestion_id === null){
 				//get all suggestions
 				//since we cant prepare 
@@ -43,24 +44,22 @@
 				$sql->bind_param("i", $suggestion_id);
 			}
 			
+
+			
 			
 			$sql->execute();
-			$result = $sql->get_result();
-			
-			if ($result->num_rows > 0) {
-			    while($rows = $result->fetch_assoc()) {
-					$data[] = array(
-						"id" => $rows['suggestion_id'],
-						"suggestion_name" => $rows['suggestion_title'],
-						"suggestion_category" => $rows['suggestion_category'],
-						"suggestion_price" => $rows['suggestion_price'], 
-						"suggestion_weather" => $rows['suggestion_weather'], 
-						"suggestion_time" => $rows['suggestion_time'], 
-						"suggestion_temperature" => $rows['suggestion_temp']
-					);
-			    }
-			} else {
-			    echo 'invalid';
+			$result = get_result_fill($sql);
+
+			while( $rows = array_shift( $result ) ){
+				$data[] = array(
+					"id" => $rows['suggestion_id'],
+					"suggestion_name" => $rows['suggestion_title'],
+					"suggestion_category" => $rows['suggestion_category'],
+					"suggestion_price" => $rows['suggestion_price'], 
+					"suggestion_weather" => $rows['suggestion_weather'], 
+					"suggestion_time" => $rows['suggestion_time'], 
+					"suggestion_temperature" => $rows['suggestion_temp']
+				);
 			}
 			
 		

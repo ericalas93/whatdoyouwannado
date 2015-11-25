@@ -1,6 +1,6 @@
 var wdywd = angular.module('wdywdApp')
-	.controller('loginController', function($rootScope, $scope, $location, UserAuthentication, jwtHelper){
-		
+	.controller('loginController', function($rootScope, $route, $scope, $location, UserAuthentication, jwtHelper){
+		$rootScope.pageTitle = $route.current.title;
 		
 		$scope.init = function(){
 			$scope.loginInfo = {

@@ -1,7 +1,8 @@
 var wdywd = angular.module('wdywdApp')
-	.controller('newSuggestionController', ['$rootScope', '$scope', 'ManipulateSuggestion' , 'UserAuthentication', 'jwtHelper', function($rootScope, $scope, ManipulateSuggestion, UserAuthentication, jwtHelper){
+	.controller('newSuggestionController', ['$rootScope', '$route', '$scope', 'ManipulateSuggestion' , 'UserAuthentication', 'jwtHelper', function($rootScope, $route, $scope, ManipulateSuggestion, UserAuthentication, jwtHelper){
 		$scope.newIdea = {};
 		$scope.isItSubmitted = false;
+		$rootScope.pageTitle = $route.current.title;
 		
 		$scope.init = function(){
 			//lets get the token from the local storage... if there is one

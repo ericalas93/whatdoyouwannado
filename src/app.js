@@ -3,11 +3,13 @@ var wdywdApp = angular.module('wdywdApp', ['ngRoute', 'ngMessages', 'angular-jwt
 		$routeProvider
 			.when('/', {
 				templateUrl: 'partials/home.html', 
-				controller: 'mainController'
+				controller: 'mainController', 
+				title: 'Home'
 			})
 			.when('/suggestion', {
 				templateUrl: 'partials/suggestion.html', 
 				controller: 'suggestionController', 
+				title: 'Get Suggestion',
 				resolve: {
 					getSuggestionList: function($q, ManipulateSuggestion){
 						//First lets check if theyre logged in
@@ -35,15 +37,18 @@ var wdywdApp = angular.module('wdywdApp', ['ngRoute', 'ngMessages', 'angular-jwt
 			})
 			.when('/login', {
 				templateUrl: 'partials/login.html', 
-				controller: 'loginController'
+				controller: 'loginController', 
+				title: 'Login or Sign Up'
 			})
 			.when('/newsuggestion', {
 				templateUrl: 'partials/newsuggestion.html',
-				controller: 'newSuggestionController'
+				controller: 'newSuggestionController', 
+				title: 'Create Suggestion'
 			})
 			.when('/dashboard', {
 				templateUrl: 'partials/user.html', 
 				controller: 'userController', 
+				title: 'Dashboard',
 				resolve: {
 						confirmLoggedIn: function($q, UserAuthentication) {
 							var defer = $q.defer(), tokenRequest = {token: localStorage['jwt']};
@@ -61,6 +66,7 @@ var wdywdApp = angular.module('wdywdApp', ['ngRoute', 'ngMessages', 'angular-jwt
 			.when('/modify/:id', {
 				templateUrl: 'partials/editsuggestions.html', 
 				controller: 'editSuggestionController', 
+				title: 'Modify Suggestion',
 				resolve: {
 						getCustomSuggestion: function($q, ManipulateSuggestion, $route){
 							var defer = $q.defer(), suggestionInfo = localStorage['username'] !== undefined ? {tableName: localStorage['username']} : {tableName: 'default_suggestion'};

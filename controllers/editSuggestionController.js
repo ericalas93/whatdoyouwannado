@@ -1,6 +1,7 @@
 var wdywd = angular.module('wdywdApp')
-	.controller('editSuggestionController', function($scope, $routeParams, $location, $timeout, getCustomSuggestion, ManipulateSuggestion){
+	.controller('editSuggestionController', function($rootScope, $route, $scope, $routeParams, $location, $timeout, getCustomSuggestion, ManipulateSuggestion){
 		$scope.showName = $routeParams.id;
+		$rootScope.pageTitle = $route.current.title;
 		
 		$scope.suggestion = getCustomSuggestion[0];
 		

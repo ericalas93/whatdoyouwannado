@@ -1,6 +1,7 @@
 var wdywd = angular.module('wdywdApp')
-	.controller('userController', function($rootScope, $scope, $location, ManipulateSuggestion, jwtHelper, getCustomSuggestions, ManipulateSuggestion){
+	.controller('userController', function($rootScope, $route, $scope, $location, ManipulateSuggestion, jwtHelper, getCustomSuggestions, ManipulateSuggestion){
 		$scope.userSuggestions = {};
+		$rootScope.pageTitle = $route.current.title;
 
 
 		$scope.init = function(){

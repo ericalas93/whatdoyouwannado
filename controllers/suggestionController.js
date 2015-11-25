@@ -1,6 +1,7 @@
 var wdywd = angular.module('wdywdApp')
-	.controller('suggestionController', function($rootScope, $scope, ManipulateSuggestion, UserAuthentication, getSuggestionList, getCurrentConditions){
+	.controller('suggestionController', function($rootScope, $route, $scope, ManipulateSuggestion, UserAuthentication, getSuggestionList, getCurrentConditions){
 		$scope.message = "Get a suggestion!";
+		$rootScope.pageTitle = $route.current.title;
 		$scope.listOfSuggestions = [];
 		$scope.resultSuggestions = {};
 		$scope.numberOfSuggestions = 0;

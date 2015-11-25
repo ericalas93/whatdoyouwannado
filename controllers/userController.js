@@ -2,6 +2,7 @@ var wdywd = angular.module('wdywdApp')
 	.controller('userController', function($rootScope, $route, $scope, $location, ManipulateSuggestion, jwtHelper, getCustomSuggestions, ManipulateSuggestion){
 		$scope.userSuggestions = {};
 		$rootScope.pageTitle = $route.current.title;
+		
 
 
 		$scope.init = function(){
@@ -14,6 +15,11 @@ var wdywd = angular.module('wdywdApp')
 			else
 				$scope.userSuggestions = angular.copy(getCustomSuggestions)
 			$rootScope.loginControllerError = false;
+			
+			var re = /alyssa|morris/i;
+			if ((m = re.exec($scope.username)) !== null){
+				$scope.isAlyssa = true;
+			}
 		}
 		
 		$scope.init();

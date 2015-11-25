@@ -68,7 +68,6 @@ var wdywd = angular.module('wdywdApp')
 			//if they deselect all options autodefault to 'All'
 			
 			$scope.newIdea.acceptableCondition = $scope.conditionSelection === undefined ? 'All' : $scope.conditionSelection.join(', ');
-			console.log($scope.newIdea.acceptableCondition)
 			
 			$scope.settingTouched(false);
 			$scope.postNewIdea();
@@ -94,7 +93,6 @@ var wdywd = angular.module('wdywdApp')
 					//we can clear the form data since the post was successful
 					$scope.relocate();
 				}else{
-					console.log(data)
 					$scope.unsuccessfulSubmit = true;
 				}
 				//alert the user it was posted with info of the post

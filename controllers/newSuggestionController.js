@@ -89,7 +89,6 @@ var wdywd = angular.module('wdywdApp')
 			$scope.newIdea.username = $scope.username;
 			
 			ManipulateSuggestion.postSuggestion($scope.newIdea).then(function(data){
-				console.log(data)
 				if(data.data === '11'){
 					$scope.isItSubmitted = true;
 					$scope.unsuccessfulSubmit = false;

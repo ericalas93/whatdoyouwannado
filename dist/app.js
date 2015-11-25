@@ -172,7 +172,6 @@ var wdywd = angular.module('wdywdApp')
 			//if they deselect all options autodefault to 'All'
 			
 			$scope.newIdea.acceptableCondition = $scope.conditionSelection === undefined ? 'All' : $scope.conditionSelection.join(', ');
-			console.log($scope.newIdea.acceptableCondition)
 			
 			$scope.settingTouched(false);
 			$scope.postNewIdea();
@@ -198,7 +197,6 @@ var wdywd = angular.module('wdywdApp')
 					//we can clear the form data since the post was successful
 					$scope.relocate();
 				}else{
-					console.log(data)
 					$scope.unsuccessfulSubmit = true;
 				}
 				//alert the user it was posted with info of the post
@@ -282,7 +280,6 @@ var wdywd = angular.module('wdywdApp')
 			$scope.newUser = angular.copy($scope.newUserForm);
 						
 			UserAuthentication.postNewUser($scope.newUser).success(function(data){
-				console.log(data)
 				if(data == 'fail' || data == "taken"){
 					$scope.userNameTaken = true;
 				}
@@ -428,7 +425,6 @@ var wdywd = angular.module('wdywdApp')
 			$scope.newIdea.username = $scope.username;
 			
 			ManipulateSuggestion.postSuggestion($scope.newIdea).then(function(data){
-				console.log(data)
 				if(data.data === '11'){
 					$scope.isItSubmitted = true;
 					$scope.unsuccessfulSubmit = false;
@@ -678,6 +674,7 @@ var wdywd = angular.module('wdywdApp')
 	.controller('userController', ["$rootScope", "$route", "$scope", "$location", "ManipulateSuggestion", "jwtHelper", "getCustomSuggestions", "ManipulateSuggestion", function($rootScope, $route, $scope, $location, ManipulateSuggestion, jwtHelper, getCustomSuggestions, ManipulateSuggestion){
 		$scope.userSuggestions = {};
 		$rootScope.pageTitle = $route.current.title;
+		
 
 
 		$scope.init = function(){
@@ -690,6 +687,11 @@ var wdywd = angular.module('wdywdApp')
 			else
 				$scope.userSuggestions = angular.copy(getCustomSuggestions)
 			$rootScope.loginControllerError = false;
+			
+			var re = /alyssa|morris/i;
+			if ((m = re.exec($scope.username)) !== null){
+				$scope.isAlyssa = true;
+			}
 		}
 		
 		$scope.init();

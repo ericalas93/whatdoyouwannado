@@ -44,7 +44,6 @@ var wdywd = angular.module('wdywdApp')
 			$scope.newUser = angular.copy($scope.newUserForm);
 						
 			UserAuthentication.postNewUser($scope.newUser).success(function(data){
-				console.log(data)
 				if(data == 'fail' || data == "taken"){
 					$scope.userNameTaken = true;
 				}

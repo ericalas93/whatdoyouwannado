@@ -8,7 +8,7 @@ The premise is quite simple, there are a list of suggestions that are default, w
 You also have the option of creating an account to be able to create/remove your own suggestions. When an account is created you also get the default list of suggestions that can be modified. 
 
 ##Usage
-Currently the site is not live, but feel free to clone this repo and upload the files/folders to your server. Making PR would be appreciated too!
+Check it out [here][4]! Feel free to clone this repo and upload the files/folders to your server. Making PR would be appreciated too! To build productions simply run `grunt angular-production` and the concatenated, minified, and uglified file will be inside `dist/app.js` and `dist/app.min.js`
 
 ##Build
 The technical stuff :)
@@ -17,9 +17,10 @@ This web app was built with AngularJS as the front-end and PHP as the backend (t
 ##Notes
 
  - My apologies for not using a `.gitignore` file, the cloning process might take longer with all the node modules.
- -  My database config files,  especially the password, are not legitimate. 
+ - My database config files, especially the password, are not legitimate. 
  - The JWT token is not the same one that will be used for production :)
 
 [1]:http://openweathermap.org
 [2]:https://github.com/auth0/angular-jwt
 [3]:https://github.com/cfrett/JWT-PHP
+[4]:http://whatdoyouwannado.ca
